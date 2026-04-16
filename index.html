@@ -656,16 +656,16 @@ function renderRWSummary(rows){
       +'</svg>';
   }
 
-  // Badge helper
-  function badge(pct,dir,cls){
-    const sign=pct>=0?'+':'';
-    const pctStr=sign+(pct*100).toFixed(1)+'%';
+  // Badge helper — idx is current/prior * 100 (index value, 100 = parity)
+  function badge(idx,dir,cls){
+    const idxStr=Math.round(idx).toString();
     let bcls='rw-badge-neutral';
     if(dir!=='none'){
-      const good=(dir==='down'&&pct<=0)||(dir==='up'&&pct>=0);
+      // cost metrics: below 100 = good (cheaper); volume/none: above 100 = good
+      const good=(dir==='down'&&idx<100)||(dir==='up'&&idx>100);
       bcls=good?'rw-badge-good':'rw-badge-bad';
     }
-    return '<span class="'+cls+' '+bcls+'">'+pctStr+'</span>';
+    return '<span class="'+cls+' '+bcls+'">'+idxStr+'</span>';
   }
 
   // Last 8 weeks for sparklines
@@ -686,19 +686,19 @@ function renderRWSummary(rows){
     const pv26=pw?pw[m.k]||0:null;
     const pyV=pyD?pyD[m.k]||0:null;
 
-    // ITPW
+    // ITPW = current week / prior week * 100
     let itpwBadge='';
     if(pv26!==null&&pv26!==0){
-      const itpwPct=(cv26-pv26)/Math.abs(pv26);
-      itpwBadge=badge(itpwPct,m.dir,'itpw-badge');
+      const itpwIdx=(cv26/pv26)*100;
+      itpwBadge=badge(itpwIdx,m.dir,'itpw-badge');
       itpwBadge='<span style="font-size:9px;font-weight:600;color:var(--dark-50);margin-right:1px;">ITPW</span>'+itpwBadge;
     }
 
-    // ITPY
+    // ITPY = FY26 current week / FY25 same week * 100
     let itpyBadge='';
     if(pyV!==null&&pyV!==0){
-      const itpyPct=(cv26-pyV)/Math.abs(pyV);
-      itpyBadge=badge(itpyPct,m.dir,'itpy-badge');
+      const itpyIdx=(cv26/pyV)*100;
+      itpyBadge=badge(itpyIdx,m.dir,'itpy-badge');
       itpyBadge='<span style="font-size:9px;font-weight:600;color:var(--dark-50);margin-right:1px;">ITPY</span>'+itpyBadge;
     }
 
@@ -739,19 +739,26 @@ function renderWoW(weekly){
     {k:'fsu', lb:'Merged Free Signup', fv:F.n,   dir:'up'},
     {k:'cpfsu',lb:'CPFSU',             fv:F.cf,  dir:'down'},
   ];
-  let h='<thead><tr><th>Metric</th><th>'+pv.fw+'<br><span style="font-weight:500;opacity:.6">'+pv.wk+'</span></th><th>'+cv.fw+'<br><span style="font-weight:500;opacity:.6">'+cv.wk+'</span></th><th>Actual Change</th><th>Change %</th></tr></thead><tbody>';
+  const pyWeek=RW_PY[cv.fw]||null;
+  function wowIdxCls(idx,dir){if(dir==='none')return'badge-neutral';return(dir==='down'?idx<100:idx>100)?'badge-good':'badge-bad';}
+  let h='<thead><tr><th>Metric</th><th>'+pv.fw+'<br><span style="font-weight:500;opacity:.6">'+pv.wk+'</span></th><th>'+cv.fw+'<br><span style="font-weight:500;opacity:.6">'+cv.wk+'</span></th><th>Actual Change</th><th>ITPW</th><th>ITPY</th></tr></thead><tbody>';
   mx.forEach(m=>{
-    const p=pv[m.k]||0,c=cv[m.k]||0,d=c-p,pct=p?d/Math.abs(p):0;
+    const p=pv[m.k]||0,c=cv[m.k]||0,d=c-p;
     let cls='badge-neutral';
     if(m.dir==='up')  cls=d>=0?'badge-good':'badge-bad';
     if(m.dir==='down')cls=d<=0?'badge-good':'badge-bad';
     const arr=d>=0?'▲':'▼';const ad=Math.abs(d);
     let ds;
-    if(m.k==='ctr'||m.k==='esvr')            ds=F.pct(ad);
+    if(m.k==='ctr'||m.k==='esvr')             ds=F.pct(ad);
     else if(m.k.startsWith('cp')||m.k==='cpm') ds=F.cf(ad);
-    else if(VOL.has(m.k))                      ds=F.n(ad);
-    else                                        ds=F.cost(ad);
-    h+='<tr><td>'+m.lb+'</td><td>'+m.fv(p)+'</td><td>'+m.fv(c)+'</td><td><span class="badge '+cls+'">'+arr+' '+(d>=0?'+':'−')+ds+'</span></td><td><span class="badge '+cls+'">'+(d>=0?'+':'')+(pct*100).toFixed(1)+'%</span></td></tr>';
+    else if(VOL.has(m.k))                       ds=F.n(ad);
+    else                                         ds=F.cost(ad);
+    const itpwIdx=p?Math.round((c/p)*100):null;
+    const pyV=pyWeek?pyWeek[m.k]||0:null;
+    const itpyIdx=(pyV&&pyV!==0)?Math.round((c/pyV)*100):null;
+    const itpwCell=itpwIdx!==null?'<span class="badge '+wowIdxCls(itpwIdx,m.dir)+'">'+itpwIdx+'</span>':'—';
+    const itpyCell=itpyIdx!==null?'<span class="badge '+wowIdxCls(itpyIdx,m.dir)+'">'+itpyIdx+'</span>':'—';
+    h+='<tr><td>'+m.lb+'</td><td>'+m.fv(p)+'</td><td>'+m.fv(c)+'</td><td><span class="badge '+cls+'">'+arr+' '+(d>=0?'+':'−')+ds+'</span></td><td>'+itpwCell+'</td><td>'+itpyCell+'</td></tr>';
   });
   h+='</tbody>';
   document.getElementById('wowTbl').innerHTML=h;
@@ -791,6 +798,9 @@ function renderFunnelWoW(rows){
     ]},
   };
 
+  const pyWeekFwow=RW_PY[cwk]||null;
+  function fwowIdxCls(idx,dir){if(dir==='none')return'fwow-neutral';return(dir==='down'?idx<100:idx>100)?'fwow-good':'fwow-bad';}
+
   Object.entries(funnelMetrics).forEach(([id,cfg])=>{
     const pAgg=agg(prevRows.filter(r=>r['Funnel Phase']===cfg.phase));
     const cAgg=agg(currRows.filter(r=>r['Funnel Phase']===cfg.phase));
@@ -800,7 +810,7 @@ function renderFunnelWoW(rows){
     const cwkShort=cwk.replace('Week ','Wk ');
     let h='';
     cfg.metrics.forEach(m=>{
-      const p=pW[m.k]||0, c=cW[m.k]||0, d=c-p, pct=p?d/Math.abs(p):0;
+      const p=pW[m.k]||0, c=cW[m.k]||0, d=c-p;
       let cls='fwow-neutral';
       if(m.dir==='up')  cls=d>=0?'fwow-good':'fwow-bad';
       if(m.dir==='down')cls=d<=0?'fwow-good':'fwow-bad';
@@ -810,14 +820,18 @@ function renderFunnelWoW(rows){
       else if(m.k.startsWith('cp')||m.k==='cpm') ds=F.cf(ad);
       else if(new Set(['psu','esv','fsu','imp','cl']).has(m.k)) ds=F.n(ad);
       else ds=F.cost(ad);
-      const pctStr=(d>=0?'+':'')+(pct*100).toFixed(1)+'%';
+      const itpwIdx=p?Math.round((c/p)*100):null;
+      const pyV=pyWeekFwow?pyWeekFwow[m.k]||0:null;
+      const itpyIdx=(pyV&&pyV!==0)?Math.round((c/pyV)*100):null;
+      const itpwBadge=itpwIdx!==null?`<span class="fwow-delta-abs ${fwowIdxCls(itpwIdx,m.dir)}">ITPW ${itpwIdx}</span>`:'';
+      const itpyBadge=itpyIdx!==null?`<span class="fwow-delta-pct ${fwowIdxCls(itpyIdx,m.dir)}">ITPY ${itpyIdx}</span>`:'';
       h+=`<div class="fwow-metric-row ${cls}">
         <div class="fwow-metric-name">${m.lb}</div>
         <div class="fwow-week-col"><div class="fwow-week-lbl">${pwkShort}</div><div class="fwow-week-val">${m.fv(p)}</div></div>
         <div class="fwow-week-col"><div class="fwow-week-lbl">${cwkShort}</div><div class="fwow-week-val">${m.fv(c)}</div></div>
         <div class="fwow-delta">
           <span class="fwow-delta-abs">${arr} ${(d>=0?'+':'−')+ds}</span>
-          <span class="fwow-delta-pct">${arr} ${pctStr}</span>
+          ${itpwBadge}${itpyBadge}
         </div>
       </div>`;
     });
