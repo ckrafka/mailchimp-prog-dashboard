@@ -672,12 +672,12 @@ function renderRWSummary(rows){
   const spark8=sortedWeeks.slice(-8);
 
   const metrics=[
-    {k:'mc',  lb:'SPEND',  fv:v=>F.cost(v), sub:(a)=>'Impressions: '+F.n(a.imp), dir:'none'},
-    {k:'cpm', lb:'CPM',    fv:v=>F.cf(v),   sub:(a)=>'Impressions: '+F.n(a.imp), dir:'down'},
-    {k:'cpc', lb:'CPC',    fv:v=>F.cf(v),   sub:(a)=>'Clicks: '+F.n(a.cl),       dir:'down'},
+    {k:'mc',   lb:'SPEND', fv:v=>F.cost(v), sub:(a)=>'Impressions: '+F.n(a.imp), dir:'none'},
     {k:'cppsu',lb:'CPPSU', fv:v=>F.cf(v),   sub:(a)=>'PSU: '+F.n(a.psu),         dir:'down'},
     {k:'cpesv',lb:'CPESV', fv:v=>F.cf(v),   sub:(a)=>'ESV: '+F.n(a.esv),         dir:'down'},
     {k:'cpfsu',lb:'CPFSU', fv:v=>F.cf(v),   sub:(a)=>'FSU: '+F.n(a.fsu),         dir:'down'},
+    {k:'cpm',  lb:'CPM',   fv:v=>F.cf(v),   sub:(a)=>'Impressions: '+F.n(a.imp), dir:'down'},
+    {k:'cpc',  lb:'CPC',   fv:v=>F.cf(v),   sub:(a)=>'Clicks: '+F.n(a.cl),       dir:'down'},
   ];
 
   let html='';
