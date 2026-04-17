@@ -257,9 +257,15 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
         <button class="view-toggle-btn active" id="btnWeekly" onclick="setView('weekly')">Weekly</button>
         <button class="view-toggle-btn" id="btnChannel" onclick="setView('channel')">Channel Deep Dive</button>
       </div>
-      <div id="cddFilterBar" style="display:none;align-items:center;gap:8px;">
-        <span style="font-size:11px;font-weight:600;color:var(--dark-80);">Reporting Week</span>
-        <div class="ms-wrap" id="ms_cdd_week" style="width:220px;"></div>
+      <div id="cddFilterBar" style="display:none;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;font-weight:600;color:var(--dark-80);">Reporting Week</span>
+          <div class="ms-wrap" id="ms_cdd_week" style="width:220px;"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;font-weight:600;color:var(--dark-80);">Campaign</span>
+          <div class="ms-wrap" id="ms_cdd_campaign" style="width:160px;"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -608,12 +614,12 @@ function msToggle(id){
 function msSA(id){
   document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>{if(!c.closest('label').style.display||c.closest('label').style.display!=='none')c.checked=true;});
   msLbl(id);
-  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
+  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'||id==='ms_cdd_campaign'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
 }
 function msCL(id){
   document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
   msLbl(id);
-  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
+  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'||id==='ms_cdd_campaign'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
 }
 function msSearch(id,q){
   const list=document.getElementById(id+'_list');
@@ -1154,8 +1160,9 @@ function initChannelFilters(){
   buildMS('ms_disp_funnel',funnels,'All Funnels');
   buildMS('ms_vid_funnel', funnels,'All Funnels');
   buildMS('ms_cdd_week',OPTS.fiscal_weeks,'All Weeks',wkLabels);
+  buildMS('ms_cdd_campaign',OPTS.campaigns,'All Campaigns');
   // Re-render channel view when any channel filter changes
-  ['ms_disp_funnel','ms_vid_funnel','ms_cdd_week'].forEach(id=>{
+  ['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign'].forEach(id=>{
     const listEl=document.getElementById(id+'_list');
     if(listEl)listEl.addEventListener('change',()=>{msLbl(id);if(window._curView==='channel')renderChannelView(filt(RAW));});
   });
@@ -1290,9 +1297,11 @@ function renderChannelTrend(rows, chartId, tableId, funnelMsId, barColor){
 
 // ── MAIN CHANNEL VIEW RENDER ──────────────────────────────────────────────
 function renderChannelView(rows){
-  // Apply CDD week filter if any weeks are selected
+  // Apply CDD filters
   const cddWeeks=msVals('ms_cdd_week');
-  const cddRows=cddWeeks.length?rows.filter(r=>cddWeeks.includes(r['Fiscal Week'])):rows;
+  const cddCamps=msVals('ms_cdd_campaign');
+  let cddRows=cddWeeks.length?rows.filter(r=>cddWeeks.includes(r['Fiscal Week'])):rows;
+  cddRows=cddCamps.length?cddRows.filter(r=>cddCamps.includes(r['Campaign'])):cddRows;
   const dispRows=cddRows.filter(r=>r['Channel']==='Programmatic Display');
   const vidRows =cddRows.filter(r=>r['Channel']==='Video');
   // RW Summaries
