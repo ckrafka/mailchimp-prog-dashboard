@@ -89,12 +89,12 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .ms-btn-sa,.ms-btn-cl{font-size:12px;font-weight:600;font-family:inherit;padding:4px 10px;border-radius:20px;cursor:pointer;border:1.5px solid var(--border);background:var(--cream-2);color:var(--dark);transition:background .12s,border-color .12s;}
 .ms-btn-sa:hover{background:var(--dark-10);border-color:var(--dark-30);}
 .ms-btn-cl:hover{background:var(--dark-10);border-color:var(--dark-30);}
-.ms-opt{display:flex;flex-direction:row;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;font-size:13px;font-weight:400;font-family:inherit;color:var(--dark);line-height:1.2;transition:background .1s;width:100%;box-sizing:border-box;}
+.ms-opt{display:flex;flex-direction:row;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;font-size:13px;font-weight:400;font-family:inherit;color:var(--dark);line-height:1.2;transition:background .1s;width:100%;box-sizing:border-box;white-space:nowrap;}
 .ms-opt:hover{background:#f5f4f0;}
 .ms-opt input[type=checkbox]{appearance:none;-webkit-appearance:none;width:16px;height:16px;min-width:16px;max-width:16px;border:2px solid #bbb;border-radius:3px;background:#fff;cursor:pointer;flex-shrink:0;flex-grow:0;margin:0;order:0;position:relative;transition:background .12s,border-color .12s;}
 .ms-opt input[type=checkbox]:checked{background:var(--dark);border-color:var(--dark);}
 .ms-opt input[type=checkbox]:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg);}
-.ms-opt span{order:1;line-height:1.2;color:var(--dark);font-size:13px;font-weight:400;font-family:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ms-opt span{order:1;line-height:1.2;color:var(--dark);font-size:13px;font-weight:400;font-family:inherit;white-space:nowrap;}
 .ms-cnt{display:inline-flex;align-items:center;justify-content:center;background:var(--teal);color:#fff;border-radius:10px;font-size:10px;font-weight:700;min-width:18px;height:18px;padding:0 5px;}
 
 .btn-reset{background:var(--cream);color:var(--dark);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:0;width:35px;height:35px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,border-color .15s;flex-shrink:0;}
@@ -140,6 +140,63 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .fwow-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;}
 .btn-fwow-collapse{background:var(--dark);border:none;border-radius:20px;color:#fff;font-size:11px;font-weight:700;font-family:inherit;padding:4px 12px;cursor:pointer;white-space:nowrap;transition:background .15s;flex-shrink:0;}
 .btn-fwow-collapse:hover{background:var(--dark-80);}
+
+/* ── AUDIENCE TAB ── */
+.aud-filter-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:24px;box-shadow:var(--shadow-sm);}
+.aud-filter-row{display:flex;align-items:center;gap:10px;}
+.aud-period-meta{min-width:160px;}
+.aud-period-label{font-size:14px;font-weight:800;color:var(--dark);letter-spacing:-.2px;}
+.aud-period-sub{font-size:11px;color:var(--dark-50);margin-top:2px;}
+.aud-filter-lbl{font-size:10px;font-weight:700;color:var(--dark-50);letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;}
+.aud-pill-group{display:flex;gap:4px;flex-wrap:wrap;}
+.aud-pill{font-size:12px;font-weight:600;font-family:inherit;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);color:var(--dark-50);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap;}
+.aud-pill:hover{background:var(--dark-10);border-color:var(--dark-30);color:var(--dark);}
+.aud-pill.active{background:var(--dark);border-color:var(--dark);color:#fff;}
+.aud-filter-chip{display:flex;align-items:center;gap:6px;}
+.aud-chip-lbl{font-size:12px;font-weight:600;color:var(--dark-50);white-space:nowrap;}
+/* Dimension pill filters */
+.aud-dim-pill-wrap{position:relative;}
+.aud-dim-pill{font-size:12px;font-weight:600;font-family:inherit;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--cream);color:var(--dark-50);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;}
+.aud-dim-pill:hover{background:var(--dark-10);border-color:var(--dark-30);color:var(--dark);}
+.aud-dim-pill.active{background:var(--dark);border-color:var(--dark);color:#fff;}
+.aud-dim-dd{position:absolute;top:calc(100% + 6px);left:0;min-width:180px;max-width:260px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:1000;padding:8px 0;}
+.aud-dim-dd-item{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;font-size:13px;font-weight:400;color:var(--dark);transition:background .1s;white-space:nowrap;}
+.aud-dim-dd-item:hover{background:var(--cream);}
+.aud-dim-dd-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:15px;height:15px;min-width:15px;border:2px solid #bbb;border-radius:3px;background:#fff;cursor:pointer;flex-shrink:0;position:relative;transition:background .12s,border-color .12s;}
+.aud-dim-dd-item input[type=checkbox]:checked{background:var(--dark);border-color:var(--dark);}
+.aud-dim-dd-item input[type=checkbox]:checked::after{content:'';position:absolute;left:3px;top:1px;width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg);}
+.aud-ctrl-select{font-size:12px;font-weight:600;font-family:inherit;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;color:var(--dark);cursor:pointer;outline:none;transition:border-color .12s;}
+.aud-ctrl-select:focus{border-color:var(--teal);}
+.aud-scorecard-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden;}
+.aud-scorecard-header{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.aud-scorecard-title{font-size:15px;font-weight:800;color:var(--dark);letter-spacing:-.2px;}
+.aud-scorecard-sub{font-size:12px;color:var(--dark-50);margin-top:3px;}
+.aud-scorecard-tbl td.aud-share-bar-cell{padding:8px 13px;width:120px;vertical-align:middle;}
+.aud-share-cell-inner{display:flex;align-items:center;gap:8px;}
+.aud-share-bar-bg{width:60px;height:7px;background:var(--cream-2);border-radius:4px;overflow:hidden;flex-shrink:0;}
+.aud-share-bar-fill{height:100%;border-radius:4px;}
+.aud-share-pct{font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap;}
+.aud-delta-pos{color:#1F845A;font-size:11px;font-weight:700;margin-left:4px;}
+.aud-delta-neg{color:#FF4F23;font-size:11px;font-weight:700;margin-left:4px;}
+.aud-delta-neu{color:var(--dark-50);font-size:11px;font-weight:600;margin-left:4px;}
+/* Funnel header rows */
+.aud-funnel-row td{font-size:13px!important;font-weight:700!important;padding-top:14px!important;padding-bottom:14px!important;}
+.aud-funnel-attract{background:#EEF6F7!important;}
+.aud-funnel-engage{background:#F5F0FF!important;}
+.aud-funnel-acquire{background:#EDFAF4!important;}
+.aud-funnel-attract td{color:var(--dark)!important;}
+.aud-funnel-engage td{color:var(--dark)!important;}
+.aud-funnel-acquire td{color:var(--dark)!important;}
+/* Show/hide audiences button */
+.aud-show-btn{font-size:11px;font-weight:600;font-family:inherit;padding:3px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:var(--dark-50);cursor:pointer;transition:background .12s,color .12s;margin-left:10px;white-space:nowrap;}
+.aud-show-btn:hover{background:var(--dark-10);color:var(--dark);border-color:var(--dark-30);}
+.ps-expand-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);color:var(--dark);font-size:14px;font-weight:700;line-height:1;cursor:pointer;transition:background .12s,border-color .12s;flex-shrink:0;padding:0;font-family:inherit;}
+.ps-expand-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark);}
+/* Sub-rows hidden by default */
+.aud-sub-row{background:var(--white)!important;}
+.aud-sub-row td:first-child{padding-left:20px!important;font-weight:500!important;color:var(--dark-80)!important;font-size:12px!important;}
+.aud-sub-row td{font-size:12px!important;color:var(--dark)!important;}
+.aud-grand-total td{font-weight:800!important;background:var(--cream-2)!important;border-top:2px solid var(--border-dk)!important;font-size:13px!important;}
 .fwow-title{font-size:15px;font-weight:800;color:var(--dark);letter-spacing:-.2px;}
 .fwow-weeks{font-size:12px;color:var(--dark-50);font-weight:500;}
 .fwow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -256,6 +313,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
       <div class="view-toggle">
         <button class="view-toggle-btn active" id="btnWeekly" onclick="setView('weekly')">Weekly</button>
         <button class="view-toggle-btn" id="btnChannel" onclick="setView('channel')">Channel Deep Dive</button>
+        <button class="view-toggle-btn" id="btnAudience" onclick="setView('audience')">Audience</button>
       </div>
       <div id="cddFilterBar" style="display:none;align-items:center;gap:16px;">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -267,6 +325,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
           <div class="ms-wrap" id="ms_cdd_campaign" style="width:160px;"></div>
         </div>
       </div>
+      <div id="audFilterBar" style="display:none;"></div>
     </div>
   </div>
 
@@ -492,11 +551,26 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
           <div class="fwow-card"><div class="fwow-card-header"><div class="fwow-funnel-name acquire-name"><span class="fwow-funnel-dot" style="background:#1F845A;"></span>Acquire</div></div><div class="fwow-card-body" id="fwow-display-acquire"></div></div>
         </div>
       </div>
+      <!-- Display Partner Scorecard -->
+      <div class="aud-scorecard-wrap" id="dispPartnerScorecard" style="margin-bottom:20px;">
+        <div class="aud-scorecard-header">
+          <div>
+            <div class="aud-scorecard-title">Partner Scorecard — Display</div>
+            <div class="aud-scorecard-sub">Performance by partner &amp; funnel</div>
+          </div>
+          <button class="btn-fwow-collapse" id="dispPSBtn" onclick="togglePartnerScorecard('disp')">Collapse</button>
+        </div>
+        <div id="dispPSBody" style="overflow-x:auto;">
+          <table class="dt" id="dispPSTbl" style="min-width:900px;"></table>
+        </div>
+      </div>
       <!-- Display Weekly Performance chart + table -->
       <div class="funnel-block">
         <div class="funnel-banner" id="dispBanner" style="background:#0066CC;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 24px;display:flex;align-items:center;gap:12px;">
           <span class="funnel-banner-title">Overall Weekly Display Performance</span>
           <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Partner</span>
+            <div class="ms-wrap" id="ms_disp_partner" style="width:160px;"></div>
             <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Funnel</span>
             <div class="ms-wrap" id="ms_disp_funnel" style="width:160px;"></div>
             <button class="btn-collapse" id="dispCollapseBtn" onclick="toggleFunnelBlock('disp')">Collapse</button>
@@ -540,11 +614,26 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
           <div class="fwow-card"><div class="fwow-card-header"><div class="fwow-funnel-name acquire-name"><span class="fwow-funnel-dot" style="background:#1F845A;"></span>Acquire</div></div><div class="fwow-card-body" id="fwow-video-acquire"></div></div>
         </div>
       </div>
+      <!-- Video Partner Scorecard -->
+      <div class="aud-scorecard-wrap" id="vidPartnerScorecard" style="margin-bottom:20px;">
+        <div class="aud-scorecard-header">
+          <div>
+            <div class="aud-scorecard-title">Partner Scorecard — Video</div>
+            <div class="aud-scorecard-sub">Performance by partner &amp; funnel</div>
+          </div>
+          <button class="btn-fwow-collapse" id="vidPSBtn" onclick="togglePartnerScorecard('vid')">Collapse</button>
+        </div>
+        <div id="vidPSBody" style="overflow-x:auto;">
+          <table class="dt" id="vidPSTbl" style="min-width:900px;"></table>
+        </div>
+      </div>
       <!-- Video Weekly Performance chart + table -->
       <div class="funnel-block">
         <div class="funnel-banner" id="vidBanner" style="background:#FF4F23;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 24px;display:flex;align-items:center;gap:12px;">
           <span class="funnel-banner-title">Overall Weekly Video Performance</span>
           <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Partner</span>
+            <div class="ms-wrap" id="ms_vid_partner" style="width:160px;"></div>
             <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Funnel</span>
             <div class="ms-wrap" id="ms_vid_funnel" style="width:160px;"></div>
             <button class="btn-collapse" id="vidCollapseBtn" onclick="toggleFunnelBlock('vid')">Collapse</button>
@@ -562,6 +651,108 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
     </div>
 
   </div><!-- end #channelView -->
+
+  <!-- AUDIENCE VIEW -->
+  <div id="audienceView" style="display:none;">
+
+    <!-- Period / Filter bar -->
+    <div class="aud-filter-card" id="audFilterCard">
+      <!-- Row 1: period label + period pills + week range + compare pills -->
+      <div class="aud-filter-row" style="margin-bottom:12px;">
+        <div class="aud-period-meta" id="audPeriodMeta">
+          <div class="aud-period-label" id="audPeriodLabel">YTD FY26 vs ITPY</div>
+          <div class="aud-period-sub" id="audPeriodSub"></div>
+        </div>
+        <div class="aud-pill-group" id="audPeriodPills">
+          <button class="aud-pill active" data-period="ytd" onclick="setAudPeriod('ytd')">YTD</button>
+          <button class="aud-pill" data-period="last12" onclick="setAudPeriod('last12')">Last 12W</button>
+          <button class="aud-pill" data-period="last8" onclick="setAudPeriod('last8')">Last 8W</button>
+          <button class="aud-pill" data-period="last4" onclick="setAudPeriod('last4')">Last 4W</button>
+          <button class="aud-pill" data-period="week" onclick="setAudPeriod('week')">Week</button>
+          <button class="aud-pill" data-period="custom" onclick="setAudPeriod('custom')">Custom</button>
+        </div>
+        <!-- Custom week range (shown when custom selected) -->
+        <div id="audCustomRange" style="display:none;align-items:center;gap:6px;">
+          <div class="ms-wrap" id="ms_aud_from" style="width:150px;"></div>
+          <span style="font-size:13px;color:var(--dark-50);">–</span>
+          <div class="ms-wrap" id="ms_aud_to" style="width:150px;"></div>
+        </div>
+        <!-- Week selector (shown when 'week' selected) -->
+        <div id="audWeekRange" style="display:none;align-items:center;gap:6px;">
+          <div class="ms-wrap" id="ms_aud_single_week" style="width:200px;"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-left:8px;">
+          <span class="aud-filter-lbl">COMPARE</span>
+          <div class="aud-pill-group" id="audComparePills">
+            <button class="aud-pill active" data-cmp="itpy" onclick="setAudCompare('itpy')">ITPY</button>
+            <button class="aud-pill" data-cmp="none" onclick="setAudCompare('none')">None</button>
+          </div>
+        </div>
+      </div>
+      <!-- Row 2: dimension filters as pills -->
+      <div class="aud-filter-row" style="flex-wrap:wrap;gap:6px;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;">
+        <div class="aud-dim-pill-wrap" id="audDimChannel">
+          <button class="aud-dim-pill" id="audDimChannelBtn" onclick="toggleAudDim('Channel')">Channel: All <span class="ms-arr">&#9662;</span></button>
+          <div class="aud-dim-dd" id="audDimChannelDd" style="display:none;"></div>
+        </div>
+        <div class="aud-dim-pill-wrap" id="audDimCampaign">
+          <button class="aud-dim-pill" id="audDimCampaignBtn" onclick="toggleAudDim('Campaign')">Campaign: All <span class="ms-arr">&#9662;</span></button>
+          <div class="aud-dim-dd" id="audDimCampaignDd" style="display:none;"></div>
+        </div>
+        <div class="aud-dim-pill-wrap" id="audDimFunnel">
+          <button class="aud-dim-pill" id="audDimFunnelBtn" onclick="toggleAudDim('Funnel')">Funnel: All <span class="ms-arr">&#9662;</span></button>
+          <div class="aud-dim-dd" id="audDimFunnelDd" style="display:none;"></div>
+        </div>
+        <div class="aud-dim-pill-wrap" id="audDimGroup">
+          <button class="aud-dim-pill" id="audDimGroupBtn" onclick="toggleAudDim('Group')">Audience Group: All <span class="ms-arr">&#9662;</span></button>
+          <div class="aud-dim-dd" id="audDimGroupDd" style="display:none;"></div>
+        </div>
+        <div class="aud-dim-pill-wrap" id="audDimAudience">
+          <button class="aud-dim-pill" id="audDimAudienceBtn" onclick="toggleAudDim('Audience')">Audience: All <span class="ms-arr">&#9662;</span></button>
+          <div class="aud-dim-dd" id="audDimAudienceDd" style="display:none;"></div>
+        </div>
+        <button class="btn-reset" onclick="resetAudFilters()" title="Reset filters" style="margin-left:auto;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Period Summary -->
+    <div id="audSummaryCard" class="rw-card" style="margin-bottom:24px;display:none;"></div>
+
+    <!-- Audience Scorecard -->
+    <div class="aud-scorecard-wrap">
+      <!-- Scorecard header -->
+      <div class="aud-scorecard-header">
+        <div>
+          <div class="aud-scorecard-title">Audience Scorecard</div>
+          <div class="aud-scorecard-sub" id="audScorecardSub">YTD FY26 vs ITPY (Δ)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:10px;font-weight:700;color:var(--dark-50);letter-spacing:.5px;text-transform:uppercase;">Display</span>
+            <select id="audScorecardDisplay" onchange="renderAudienceScorecard()" class="aud-ctrl-select">
+              <option value="costpers">Cost Pers ($)</option>
+              <option value="volume">Volume (#)</option>
+              <option value="rates">Rates (%)</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:10px;font-weight:700;color:var(--dark-50);letter-spacing:.5px;text-transform:uppercase;">Sort By</span>
+            <select id="audScorecardSort" onchange="renderAudienceScorecard()" class="aud-ctrl-select">
+              <option value="mc">Spend (High→Low)</option>
+              <option value="psu">PSU Volume (High→Low)</option>
+              <option value="esv">ESV Volume (High→Low)</option>
+              <option value="fsu">FSU Volume (High→Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Scorecard table -->
+      <div class="dtw" style="border:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);">
+        <table class="dt aud-scorecard-tbl" id="audScorecardTbl"></table>
+      </div>
+    </div>
+
+  </div><!-- end #audienceView -->
 
 </div>
 
@@ -610,16 +801,6 @@ function msToggle(id){
     const si=el.querySelector('.ms-dd-search input');
     if(si){si.value='';msSearch(id,'');}
   }
-}
-function msSA(id){
-  document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>{if(!c.closest('label').style.display||c.closest('label').style.display!=='none')c.checked=true;});
-  msLbl(id);
-  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'||id==='ms_cdd_campaign'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
-}
-function msCL(id){
-  document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
-  msLbl(id);
-  if(id==='ms_disp_funnel'||id==='ms_vid_funnel'||id==='ms_cdd_week'||id==='ms_cdd_campaign'){if(window._curView==='channel')renderChannelView(filt(RAW));}else{applyFilters();}
 }
 function msSearch(id,q){
   const list=document.getElementById(id+'_list');
@@ -1140,7 +1321,7 @@ function renderAll(rows){
 }
 
 function applyFilters(){renderAll(filt(RAW));if(window._curView==='channel')renderChannelView(filt(RAW));}
-document.addEventListener('DOMContentLoaded',()=>{initFilters();applyFilters();initChannelFilters();});
+document.addEventListener('DOMContentLoaded',()=>{initFilters();applyFilters();initChannelFilters();initAudienceFilters();});
 
 // ── VIEW TOGGLE ────────────────────────────────────────────────────────────
 window._curView='weekly';
@@ -1148,10 +1329,14 @@ function setView(v){
   window._curView=v;
   document.getElementById('weeklyView').style.display=v==='weekly'?'':'none';
   document.getElementById('channelView').style.display=v==='channel'?'':'none';
+  document.getElementById('audienceView').style.display=v==='audience'?'':'none';
   document.getElementById('cddFilterBar').style.display=v==='channel'?'flex':'none';
+  document.getElementById('audFilterBar').style.display=v==='audience'?'flex':'none';
   document.getElementById('btnWeekly').classList.toggle('active',v==='weekly');
   document.getElementById('btnChannel').classList.toggle('active',v==='channel');
+  document.getElementById('btnAudience').classList.toggle('active',v==='audience');
   if(v==='channel')renderChannelView(filt(RAW));
+  if(v==='audience')renderAudienceView();
 }
 
 // ── CHANNEL DEEP DIVE FUNNEL FILTERS ──────────────────────────────────────
@@ -1161,8 +1346,13 @@ function initChannelFilters(){
   buildMS('ms_vid_funnel', funnels,'All Funnels');
   buildMS('ms_cdd_week',OPTS.fiscal_weeks,'All Weeks',wkLabels);
   buildMS('ms_cdd_campaign',OPTS.campaigns,'All Campaigns');
+  // Build per-channel partner lists from data
+  const dispPartners=[...new Set(RAW.filter(r=>r['Channel']==='Programmatic Display'&&r['Partner']).map(r=>r['Partner']))].sort();
+  const vidPartners =[...new Set(RAW.filter(r=>r['Channel']==='Video'&&r['Partner']).map(r=>r['Partner']))].sort();
+  buildMS('ms_disp_partner',dispPartners,'All Partners');
+  buildMS('ms_vid_partner', vidPartners, 'All Partners');
   // Re-render channel view when any channel filter changes
-  ['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign'].forEach(id=>{
+  ['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].forEach(id=>{
     const listEl=document.getElementById(id+'_list');
     if(listEl)listEl.addEventListener('change',()=>{msLbl(id);if(window._curView==='channel')renderChannelView(filt(RAW));});
   });
@@ -1295,6 +1485,191 @@ function renderChannelTrend(rows, chartId, tableId, funnelMsId, barColor){
   renderTbl(tableId,w,C_OVR);
 }
 
+// ── PARTNER SCORECARD ─────────────────────────────────────────────────────
+const PS_COLS=[
+  {k:'mc',   lb:'Spend',      f:F.cost, dir:'none'},
+  {k:'imp',  lb:'Impressions',f:F.n,    dir:'up'},
+  {k:'cl',   lb:'Clicks',     f:F.n,    dir:'up'},
+  {k:'ctr',  lb:'CTR',        f:F.pct,  dir:'up'},
+  {k:'cpm',  lb:'CPM',        f:F.cf,   dir:'down'},
+  {k:'pv',   lb:'Page Views', f:F.n,    dir:'up'},
+  {k:'esv',  lb:'ESV',        f:F.n,    dir:'up'},
+  {k:'cpesv',lb:'CPESV',      f:F.cf,   dir:'down'},
+  {k:'psu',  lb:'PSU',        f:F.n,    dir:'up'},
+  {k:'cppsu',lb:'CPPSU',      f:F.cf,   dir:'down'},
+  {k:'fsu',  lb:'FSU',        f:F.n,    dir:'up'},
+];
+const PS_FUNNEL_BG={Attract:'#EEF6F7',Engage:'#F5F0FF',Acquire:'#EDFAF4'};
+const PS_FUNNEL_DOT={Attract:'#007C89',Engage:'#9333EA',Acquire:'#1F845A'};
+const PS_PARTNER_PALETTE=['#0066CC','#FF4F23','#007C89','#9333EA','#1F845A','#F59E0B','#E11D48','#0891B2','#6D28D9','#059669','#D97706','#DC2626','#0D9488','#7C3AED','#2563EB'];
+function partnerColor(name){let h=0;for(let i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))>>>0;return PS_PARTNER_PALETTE[h%PS_PARTNER_PALETTE.length];}
+
+function aggPS(rows,keyFn){
+  const m=new Map();
+  rows.forEach(r=>{
+    const k=keyFn(r);
+    if(!m.has(k))m.set(k,{_key:k,mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0,sfs:0});
+    const a=m.get(k);
+    a.mc+=(r['Media Cost']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);
+    a.pv+=(r['Page Views']||0);a.esv+=(r['ESV']||0);a.psu+=(r['Plan Paid Signups']||0);
+    a.fsu+=(r['Merged Free Signup']||0);a.sfs+=(r['Sales Form Submit']||0);
+  });
+  m.forEach(a=>{
+    a.ctr=sd(a.cl,a.imp);a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);
+    a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);
+  });
+  return m;
+}
+
+function renderPartnerScorecard(rows,tblId){
+  const tbl=document.getElementById(tblId);
+  if(!tbl)return;
+  if(!rows.length){tbl.innerHTML='<tr><td colspan="'+(PS_COLS.length+3)+'" style="padding:20px;text-align:center;color:var(--dark-50)">No data</td></tr>';return;}
+
+  // Determine CW and PW from sorted fiscal weeks in rows
+  const allWeeks=[...new Set(rows.map(r=>r['Fiscal Week']).filter(Boolean))].sort((a,b)=>parseInt(a.replace('Week ',''))-parseInt(b.replace('Week ','')));
+  const cwFW=allWeeks[allWeeks.length-1];
+  const pwFW=allWeeks.length>=2?allWeeks[allWeeks.length-2]:null;
+  const cwRows=rows.filter(r=>r['Fiscal Week']===cwFW);
+  const pwRows=pwFW?rows.filter(r=>r['Fiscal Week']===pwFW):[];
+
+  // Helper: build per-partner agg for a week set, keyed by partner+funnel
+  function aggWeek(wRows){
+    const m=new Map();
+    wRows.forEach(r=>{
+      ['partner','funnel'].forEach(scope=>{
+        const k=scope==='partner'?'P:'+r['Partner']:'PF:'+r['Partner']+'|'+r['Funnel Phase'];
+        if(!m.has(k))m.set(k,{mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0});
+        const a=m.get(k);
+        a.mc+=(r['Media Cost']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);
+        a.pv+=(r['Page Views']||0);a.esv+=(r['ESV']||0);a.psu+=(r['Plan Paid Signups']||0);
+        a.fsu+=(r['Merged Free Signup']||0);
+      });
+    });
+    m.forEach(a=>{a.ctr=sd(a.cl,a.imp);a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);});
+    return m;
+  }
+  const cwAgg=aggWeek(cwRows);
+  const pwAgg=aggWeek(pwRows);
+
+  // ITPW badge helper — c and p are scalar metric values
+  function itpwBadge(c,p,dir){
+    if(p==null||p===0||c==null)return'';
+    const idx=Math.round((c/p)*100);
+    let bcls='rw-badge-neutral';
+    if(dir!=='none'){const good=(dir==='down'?idx<100:idx>100);bcls=good?'rw-badge-good':'rw-badge-bad';}
+    return`<span class="itpw-badge ${bcls}" style="margin-top:2px;display:inline-flex;">ITPW&nbsp;${idx}</span>`;
+  }
+  function metricCell(cur,pri,col,extraStyle=''){
+    const val=col.f(cur[col.k]);
+    const badge=pri?itpwBadge(cur[col.k],pri[col.k],col.dir):'';
+    return`<td style="${extraStyle}"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">${val}${badge}</div></td>`;
+  }
+
+  // Get sorted partner list from current rows
+  const partners=[...new Set(rows.map(r=>r['Partner']).filter(Boolean))].sort();
+  const funnels=['Attract','Engage','Acquire'];
+
+  // Grand totals
+  const gtMap=aggPS(rows,()=>'gt');
+  const gt=gtMap.get('gt');
+
+  // Header — add ITPW note
+  const cwLabel=cwFW?cwFW.replace('Week ','W'):'CW';
+  const pwLabel=pwFW?pwFW.replace('Week ','W'):'PW';
+  let h='<thead><tr>'
+    +'<th style="text-align:left;min-width:180px;">Partner</th>'
+    +'<th style="text-align:left;min-width:120px;">Funnel</th>'
+    +'<th style="min-width:100px;">Spend Share</th>';
+  PS_COLS.forEach(c=>h+=`<th>${c.lb}<br><span style="font-weight:400;opacity:.55;font-size:9px;letter-spacing:.3px;">${cwLabel} vs ${pwLabel}</span></th>`);
+  h+='</tr></thead><tbody>';
+
+  partners.forEach(partner=>{
+    const pRows=rows.filter(r=>r['Partner']===partner);
+    const ptMap=aggPS(pRows,()=>'pt');
+    const pt=ptMap.get('pt');
+    const pShare=gt.mc>0?pt.mc/gt.mc:0;
+    const pid='ps-p-'+partner.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9-]/g,'');
+    const pColor=partnerColor(partner);
+    const cwP=cwAgg.get('P:'+partner)||null;
+    const pwP=pwAgg.get('P:'+partner)||null;
+
+    // Partner total row
+    h+=`<tr style="background:var(--cream-2);font-weight:700;border-top:2px solid var(--border);">`;
+    h+=`<td style="text-align:left;font-weight:800;">
+      <span style="display:inline-flex;align-items:center;gap:8px;">
+        <span style="width:11px;height:11px;border-radius:50%;background:${pColor};display:inline-block;flex-shrink:0;"></span>
+        ${partner}
+        <button class="ps-expand-btn" onclick="togglePSFunnels('${pid}')" id="${pid}-btn" title="Expand funnels">+</button>
+      </span></td>`;
+    h+=`<td style="text-align:left;color:var(--dark-50);font-size:12px;">All</td>`;
+    const sw=Math.min(100,pShare*100).toFixed(1);
+    h+=`<td class="aud-share-bar-cell"><div class="aud-share-cell-inner">
+      <div class="aud-share-bar-bg"><div class="aud-share-bar-fill" style="width:${sw}%;background:${pColor};"></div></div>
+      <span class="aud-share-pct">${(pShare*100).toFixed(0)}%</span>
+    </div></td>`;
+    PS_COLS.forEach(c=>h+=metricCell(cwP||pt,pwP,c,'font-weight:700;'));
+    h+=`</tr>`;
+
+    // Funnel sub-rows (hidden by default)
+    funnels.forEach(funnel=>{
+      const fRows=pRows.filter(r=>r['Funnel Phase']===funnel);
+      if(!fRows.length)return;
+      const fMap=aggPS(fRows,()=>'f');
+      const fd=fMap.get('f');
+      const fShare=gt.mc>0?fd.mc/gt.mc:0;
+      const fsw=Math.min(100,fShare*100).toFixed(1);
+      const fbg=PS_FUNNEL_BG[funnel]||'#fff';
+      const fdot=PS_FUNNEL_DOT[funnel]||'#888';
+      const pfKey='PF:'+partner+'|'+funnel;
+      const cwPF=cwAgg.get(pfKey)||null;
+      const pwPF=pwAgg.get(pfKey)||null;
+      h+=`<tr class="ps-funnel-row" data-pid="${pid}" style="display:none;background:${fbg};">`;
+      h+=`<td style="text-align:left;padding-left:28px!important;color:var(--dark-50);font-size:12px;"></td>`;
+      h+=`<td style="text-align:left;">
+        <span style="display:inline-flex;align-items:center;gap:7px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:${fdot};display:inline-block;flex-shrink:0;"></span>
+          <span style="font-weight:600;font-size:12px;">${funnel}</span>
+        </span></td>`;
+      h+=`<td class="aud-share-bar-cell"><div class="aud-share-cell-inner">
+        <div class="aud-share-bar-bg"><div class="aud-share-bar-fill" style="width:${fsw}%;background:${fdot};"></div></div>
+        <span class="aud-share-pct" style="color:var(--dark-50);font-weight:500;">${(fShare*100).toFixed(0)}%</span>
+      </div></td>`;
+      PS_COLS.forEach(c=>h+=metricCell(cwPF||fd,pwPF,c,'font-weight:500;'));
+      h+=`</tr>`;
+    });
+  });
+
+  // Grand total (no ITPW — total row shows period aggregate)
+  const gtCW=cwAgg.get('P:__gt__')||null; // won't exist, intentional — grand total shows no ITPW
+  h+=`<tr style="font-weight:800;background:var(--cream-2);border-top:2px solid var(--border-dk);">`;
+  h+=`<td style="text-align:left;">Grand Total</td><td></td>`;
+  h+=`<td class="aud-share-bar-cell"><div class="aud-share-cell-inner">
+    <div class="aud-share-bar-bg"><div class="aud-share-bar-fill" style="width:100%;background:var(--dark);"></div></div>
+    <span class="aud-share-pct">100%</span>
+  </div></td>`;
+  PS_COLS.forEach(c=>h+=`<td>${c.f(gt[c.k])}</td>`);
+  h+=`</tr></tbody>`;
+  tbl.innerHTML=h;
+}
+
+function togglePSFunnels(pid){
+  const rows=document.querySelectorAll(`tr.ps-funnel-row[data-pid="${pid}"]`);
+  const btn=document.getElementById(pid+'-btn');
+  const hidden=rows.length&&rows[0].style.display==='none';
+  rows.forEach(r=>r.style.display=hidden?'':'none');
+  if(btn){btn.textContent=hidden?'−':'+';btn.title=hidden?'Collapse funnels':'Expand funnels';}
+}
+
+function togglePartnerScorecard(ch){
+  const body=document.getElementById(ch+'PSBody');
+  const btn=document.getElementById(ch+'PSBtn');
+  if(!body)return;
+  const collapsed=body.style.display==='none';
+  body.style.display=collapsed?'':'none';
+  if(btn)btn.textContent=collapsed?'Collapse':'Expand';
+}
+
 // ── MAIN CHANNEL VIEW RENDER ──────────────────────────────────────────────
 function renderChannelView(rows){
   // Apply CDD filters
@@ -1310,9 +1685,445 @@ function renderChannelView(rows){
   // Funnel WoW
   renderFunnelWoWFor(dispRows,'Display','fwowDisplayWeeks');
   renderFunnelWoWFor(vidRows, 'Video',  'fwowVideoWeeks');
-  // Trend charts + tables (respecting per-channel funnel filter)
-  renderChannelTrend(dispRows,'dispTrendChart','dispTable','ms_disp_funnel',CLR.blue);
-  renderChannelTrend(vidRows, 'vidTrendChart', 'vidTable', 'ms_vid_funnel', CLR.rad);
+  // Partner Scorecards (unaffected by partner filter — show all partners)
+  renderPartnerScorecard(dispRows,'dispPSTbl');
+  renderPartnerScorecard(vidRows, 'vidPSTbl');
+  // Trend charts + tables (respecting per-channel funnel + partner filters)
+  const dispParts=msVals('ms_disp_partner');
+  const vidParts =msVals('ms_vid_partner');
+  const dispFiltered=dispParts.length?dispRows.filter(r=>dispParts.includes(r['Partner'])):dispRows;
+  const vidFiltered =vidParts.length ?vidRows.filter(r=>vidParts.includes(r['Partner'])) :vidRows;
+  renderChannelTrend(dispFiltered,'dispTrendChart','dispTable','ms_disp_funnel',CLR.blue);
+  renderChannelTrend(vidFiltered, 'vidTrendChart', 'vidTable', 'ms_vid_funnel', CLR.rad);
+}
+
+// ── AUDIENCE TAB ─────────────────────────────────────────────────────────
+const AUD_GRP_COLORS={RETRGT:'#007C89',PRSPCT:'#9333EA',SMB:'#1F845A',DSB:'#F59E0B'};
+const AUD_GRP_DEFAULT='#0066CC';
+const AUD_FUNNEL_COLORS={Attract:'#007C89',Engage:'#9333EA',Acquire:'#1F845A'};
+// Distinct palette for individual audience dots (cycles through, varied from funnel colors)
+const AUD_DOT_PALETTE=['#0066CC','#FF4F23','#F59E0B','#007C89','#9333EA','#1F845A','#E11D48','#0891B2','#7C3AED','#059669','#D97706','#2563EB','#DC2626','#0D9488','#6D28D9'];
+function audDotColor(name){let h=0;for(let i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))>>>0;return AUD_DOT_PALETTE[h%AUD_DOT_PALETTE.length];}
+
+// Dimension filter state (simple sets)
+const _audDimSel={Channel:new Set(),Campaign:new Set(),Funnel:new Set(),Group:new Set(),Audience:new Set()};
+const _audDimOpts={
+  Channel:()=>OPTS.channels,
+  Campaign:()=>OPTS.campaigns,
+  Funnel:()=>OPTS.funnels,
+  Group:()=>OPTS.audience_groups,
+  Audience:()=>OPTS.audiences
+};
+const _audDimField={Channel:'Channel',Campaign:'Campaign',Funnel:'Funnel Phase',Group:'Audience Group',Audience:'Audience'};
+
+// Period state
+window._audPeriod='ytd';
+window._audCompare='itpy';
+
+function getAudWeeks(){
+  const all=OPTS.fiscal_weeks;
+  const p=window._audPeriod;
+  if(p==='ytd') return all;
+  if(p==='last12') return all.slice(-12);
+  if(p==='last8')  return all.slice(-8);
+  if(p==='last4')  return all.slice(-4);
+  if(p==='week'){
+    const sel=msVals('ms_aud_single_week');
+    return sel.length?sel:all.slice(-1);
+  }
+  if(p==='custom'){
+    const from=msVals('ms_aud_from');const to=msVals('ms_aud_to');
+    if(from.length&&to.length){
+      const fi=all.indexOf(from[0]),ti=all.indexOf(to[0]);
+      if(fi>=0&&ti>=0)return all.slice(Math.min(fi,ti),Math.max(fi,ti)+1);
+    }
+    return all;
+  }
+  return all;
+}
+
+function setAudPeriod(p){
+  window._audPeriod=p;
+  document.querySelectorAll('#audPeriodPills .aud-pill').forEach(b=>b.classList.toggle('active',b.dataset.period===p));
+  document.getElementById('audCustomRange').style.display=p==='custom'?'flex':'none';
+  document.getElementById('audWeekRange').style.display=p==='week'?'flex':'none';
+  updateAudPeriodLabel();
+  if(window._curView==='audience')renderAudienceView();
+}
+
+function setAudCompare(c){
+  window._audCompare=c;
+  document.querySelectorAll('#audComparePills .aud-pill').forEach(b=>b.classList.toggle('active',b.dataset.cmp===c));
+  updateAudPeriodLabel();
+  if(window._curView==='audience')renderAudienceView();
+}
+
+function updateAudPeriodLabel(){
+  const weeks=getAudWeeks();
+  const cmp=window._audCompare;
+  const cmpLbl=cmp==='itpy'?'vs ITPY':cmp==='none'?'':' ';
+  const labels={ytd:'YTD FY26',last12:'Last 12W',last8:'Last 8W',last4:'Last 4W',week:'Week',custom:'Custom'};
+  document.getElementById('audPeriodLabel').textContent=(labels[window._audPeriod]||'FY26')+(cmpLbl?' '+cmpLbl:'');
+  document.getElementById('audScorecardSub').textContent=(labels[window._audPeriod]||'FY26 YTD')+(cmpLbl?' '+cmpLbl+' (Δ)':'');
+  if(weeks.length){
+    const first=wkLabels[weeks[0]]||weeks[0], last=wkLabels[weeks[weeks.length-1]]||weeks[weeks.length-1];
+    document.getElementById('audPeriodSub').textContent=first+(weeks.length>1?' – '+last:'')+'  ·  '+weeks.length+' week'+(weeks.length!==1?'s':'');
+  }
+}
+
+function filtAud(rows){
+  const weeks=getAudWeeks();
+  return rows.filter(r=>{
+    if(!weeks.includes(r['Fiscal Week']))return false;
+    for(const[dim,field]of Object.entries(_audDimField)){
+      if(_audDimSel[dim].size&&!_audDimSel[dim].has(r[field]))return false;
+    }
+    return true;
+  });
+}
+
+// Aggregate by a key (funnel or audience)
+function aggByKey(rows,keyFn,labelFn){
+  const m=new Map();
+  rows.forEach(r=>{
+    const k=keyFn(r);
+    if(!m.has(k))m.set(k,{_key:k,_label:labelFn?labelFn(r):k,mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0,sfs:0});
+    const a=m.get(k);
+    a.mc+=(r['Media Cost']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);
+    a.pv+=(r['Page Views']||0);a.esv+=(r['ESV']||0);a.psu+=(r['Plan Paid Signups']||0);
+    a.fsu+=(r['Merged Free Signup']||0);a.sfs+=(r['Sales Form Submit']||0);
+  });
+  m.forEach(a=>{
+    a.ctr=sd(a.cl,a.imp);a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);
+    a.share=0;// filled by caller
+    a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);
+  });
+  return m;
+}
+
+function renderAudienceView(){
+  const rows=filtAud(RAW);
+  updateAudPeriodLabel();
+  renderAudSummary(rows);
+  renderAudienceScorecard(rows);
+}
+
+function renderAudSummary(rows){
+  const el=document.getElementById('audSummaryCard');
+  if(!el)return;
+  if(!rows.length){el.style.display='none';return;}
+
+  // Aggregate totals across all selected weeks
+  const tot={mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0};
+  rows.forEach(r=>{
+    tot.mc+=(r['Media Cost']||0);tot.imp+=(r['Impressions']||0);tot.cl+=(r['Clicks']||0);
+    tot.pv+=(r['Page Views']||0);tot.esv+=(r['ESV']||0);tot.psu+=(r['Plan Paid Signups']||0);tot.fsu+=(r['Merged Free Signup']||0);
+  });
+  tot.cpm=sd(tot.mc,tot.imp)*1000;tot.cpc=sd(tot.mc,tot.cl);
+  tot.cpesv=sd(tot.mc,tot.esv);tot.cppsu=sd(tot.mc,tot.psu);tot.cpfsu=sd(tot.mc,tot.fsu);
+
+  // ITPY aggregated from RW_PY
+  const pyTot={mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0};
+  getAudWeeks().forEach(fw=>{const py=RW_PY[fw];if(!py)return;['mc','imp','cl','pv','esv','psu','fsu'].forEach(k=>pyTot[k]+=(py[k]||0));});
+  pyTot.cpm=sd(pyTot.mc,pyTot.imp)*1000;pyTot.cpc=sd(pyTot.mc,pyTot.cl);
+  pyTot.cpesv=sd(pyTot.mc,pyTot.esv);pyTot.cppsu=sd(pyTot.mc,pyTot.psu);pyTot.cpfsu=sd(pyTot.mc,pyTot.fsu);
+
+  const showItpy=window._audCompare!=='none';
+  function itpyBadge(cur,py,dir){
+    if(!showItpy||!py||!cur)return'';
+    const idx=Math.round((cur/py)*100);
+    let cls='rw-badge-neutral';
+    if(dir!=='none'){const good=(dir==='down'&&idx<100)||(dir==='up'&&idx>100);cls=good?'rw-badge-good':'rw-badge-bad';}
+    return'<span class="itpy-badge '+cls+'">ITPY '+idx+'</span>';
+  }
+
+  const metrics=[
+    {k:'mc',   lb:'SPEND', fv:F.cost, sub:()=>'Impressions: '+F.n(tot.imp), dir:'none'},
+    {k:'cppsu',lb:'CPPSU', fv:F.cf,   sub:()=>'PSU: '+F.n(tot.psu),         dir:'down'},
+    {k:'cpesv',lb:'CPESV', fv:F.cf,   sub:()=>'ESV: '+F.n(tot.esv),         dir:'down'},
+    {k:'cpfsu',lb:'CPFSU', fv:F.cf,   sub:()=>'FSU: '+F.n(tot.fsu),         dir:'down'},
+    {k:'cpm',  lb:'CPM',   fv:F.cf,   sub:()=>'Impressions: '+F.n(tot.imp),  dir:'down'},
+    {k:'cpc',  lb:'CPC',   fv:F.cf,   sub:()=>'Clicks: '+F.n(tot.cl),        dir:'down'},
+  ];
+
+  const weeks=getAudWeeks();
+  const periodLbl=document.getElementById('audPeriodLabel').textContent;
+  // Date range string from first/last week start dates
+  let drStr='';
+  const firstWk=RAW.find(r=>r['Fiscal Week']===weeks[0]&&r['Week']);
+  const lastWk=RAW.find(r=>r['Fiscal Week']===weeks[weeks.length-1]&&r['Week']);
+  if(firstWk&&lastWk){
+    const s=new Date(firstWk['Week']+'T00:00:00'),e=new Date(lastWk['Week']+'T00:00:00');
+    e.setDate(e.getDate()+6);
+    const fmt=d=>d.toISOString().split('T')[0];
+    drStr=fmt(s)+' – '+fmt(e)+'  ·  '+weeks.length+' week'+(weeks.length!==1?'s':'');
+  }
+
+  // Sparkline using weekly aggregates for the selected period
+  const wklyMap=new Map();
+  rows.forEach(r=>{
+    const k=r['Fiscal Week'];if(!k)return;
+    if(!wklyMap.has(k))wklyMap.set(k,{mc:0,psu:0,esv:0,fsu:0,imp:0,cl:0});
+    const a=wklyMap.get(k);
+    a.mc+=(r['Media Cost']||0);a.psu+=(r['Plan Paid Signups']||0);a.esv+=(r['ESV']||0);
+    a.fsu+=(r['Merged Free Signup']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);
+  });
+  const wkArr=weeks.map(fw=>wklyMap.get(fw)||{mc:0,psu:0,esv:0,fsu:0,imp:0,cl:0});
+  wkArr.forEach(a=>{a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);});
+
+  function spark(vals){
+    if(!vals||vals.length<2)return'';
+    const mn=Math.min(...vals),mx=Math.max(...vals),rng=mx-mn||1;
+    const pts=vals.map((v,i)=>((i/(vals.length-1))*76+2).toFixed(1)+','+(26-((v-mn)/rng)*22+1).toFixed(1)).join(' ');
+    const lx=76+2,ly=(26-((vals[vals.length-1]-mn)/rng)*22+1);
+    return'<svg class="rw-spark" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg">'
+      +'<polyline points="'+pts+'" fill="none" stroke="#C4B8AE" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+      +'<circle cx="'+lx+'" cy="'+ly.toFixed(1)+'" r="2.5" fill="#FF4F23"/>'
+      +'</svg>';
+  }
+
+  let tiles='';
+  metrics.forEach(m=>{
+    tiles+='<div class="rw-tile">'
+      +'<div class="rw-label">'+m.lb+'</div>'
+      +'<div class="rw-value">'+m.fv(tot[m.k])+'</div>'
+      +spark(wkArr.map(w=>w[m.k]||0))
+      +'<div class="rw-sub">'+m.sub()+'</div>'
+      +'<div class="rw-badges">'+itpyBadge(tot[m.k],pyTot[m.k],m.dir)+'</div>'
+      +'</div>';
+  });
+
+  el.innerHTML='<div class="rw-header">'
+    +'<div class="rw-header-left">'
+    +'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="3" width="16" height="14" rx="2.5" stroke="#8C7B6B" stroke-width="1.5"/><path d="M1 7h16" stroke="#8C7B6B" stroke-width="1.5"/><path d="M5 1v4M13 1v4" stroke="#8C7B6B" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    +'<div class="rw-title">'+periodLbl+'</div>'
+    +'</div>'
+    +(drStr?'<div class="rw-daterange">'+drStr+'</div>':'')
+    +'</div>'
+    +'<div class="rw-metrics">'+tiles+'</div>';
+  el.style.display='';
+}
+
+function renderAudienceScorecard(rows){
+  if(!rows)rows=filtAud(RAW);
+  const display=document.getElementById('audScorecardDisplay').value;
+  const sortKey=document.getElementById('audScorecardSort').value;
+  const showDelta=window._audCompare!=='none';
+
+  const COLS_COSTPERS=[
+    {k:'mc',lb:'Spend',f:F.cost},{k:'cpm',lb:'CPM',f:F.cf},{k:'cpc',lb:'CPC',f:F.cf},
+    {k:'cpesv',lb:'CPESV',f:F.cf},{k:'cpfsu',lb:'CPFSU',f:F.cf},{k:'cppsu',lb:'CPPSU',f:F.cf}
+  ];
+  const COLS_VOLUME=[
+    {k:'mc',lb:'Spend',f:F.cost},{k:'imp',lb:'Impressions',f:F.n},{k:'cl',lb:'Clicks',f:F.n},
+    {k:'pv',lb:'Page Views',f:F.n},{k:'esv',lb:'ESV',f:F.n},{k:'fsu',lb:'FSU',f:F.n},{k:'psu',lb:'PSU',f:F.n}
+  ];
+  const COLS_RATES=[
+    {k:'mc',lb:'Spend',f:F.cost},{k:'ctr',lb:'CTR',f:F.pct},
+    {k:'_esvr',lb:'ESVR',f:F.pct},{k:'_fsur',lb:'FSUR',f:F.pct},{k:'_psur',lb:'PSUR',f:F.pct}
+  ];
+  const cols=display==='costpers'?COLS_COSTPERS:display==='volume'?COLS_VOLUME:COLS_RATES;
+  const costMetrics=new Set(['cpm','cpc','cpesv','cpfsu','cppsu']);
+
+  const tbl=document.getElementById('audScorecardTbl');
+  if(!rows.length){tbl.innerHTML='<tr><td colspan="22" style="padding:24px;text-align:center;color:var(--dark-50)">No data for selected filters</td></tr>';return;}
+
+  // Grand total
+  const gtMap=aggByKey(rows,r=>'total');
+  const gt=gtMap.get('total');
+  gt._esvr=sd(gt.esv,gt.pv);gt._fsur=sd(gt.fsu,gt.pv);gt._psur=sd(gt.psu,gt.pv);
+
+  // Prior year aggregated totals
+  let pyMap=null;
+  if(showDelta){
+    pyMap={mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0};
+    getAudWeeks().forEach(fw=>{const py=RW_PY[fw];if(!py)return;['mc','imp','cl','pv','esv','psu','fsu'].forEach(k=>pyMap[k]+=(py[k]||0));});
+    if(pyMap.mc){
+      pyMap.cpm=sd(pyMap.mc,pyMap.imp)*1000;pyMap.cpc=sd(pyMap.mc,pyMap.cl);
+      pyMap.cpesv=sd(pyMap.mc,pyMap.esv);pyMap.cpfsu=sd(pyMap.mc,pyMap.fsu);pyMap.cppsu=sd(pyMap.mc,pyMap.psu);
+      pyMap.ctr=sd(pyMap.cl,pyMap.imp);pyMap._esvr=sd(pyMap.esv,pyMap.pv);
+      pyMap._fsur=sd(pyMap.fsu,pyMap.pv);pyMap._psur=sd(pyMap.psu,pyMap.pv);
+    }
+  }
+
+  function delta(cur,py,k){
+    if(!showDelta||!py||!py[k]||!cur[k])return'';
+    const pct=((cur[k]-py[k])/Math.abs(py[k]))*100;
+    const s=(pct>=0?'+':'')+Math.round(pct)+'%';
+    const good=costMetrics.has(k)?pct<=0:pct>=0;
+    const cls=Math.abs(pct)<0.5?'aud-delta-neu':good?'aud-delta-pos':'aud-delta-neg';
+    return'<span class="'+cls+'">'+s+'</span>';
+  }
+
+  function shareCell(pct,color){
+    const w=Math.min(100,pct*100).toFixed(1);
+    return'<td class="aud-share-bar-cell"><div class="aud-share-cell-inner">'
+      +'<div class="aud-share-bar-bg"><div class="aud-share-bar-fill" style="width:'+w+'%;background:'+color+';"></div></div>'
+      +'<span class="aud-share-pct">'+(pct*100).toFixed(0)+'%</span>'
+      +'</div></td>';
+  }
+
+  // Header
+  let h='<thead><tr>'
+    +'<th style="text-align:left;min-width:260px;">Funnel / Audience</th>'
+    +'<th style="text-align:center;min-width:160px;">Audience Group</th>'
+    +'<th style="min-width:120px;">Share</th>';
+  cols.forEach(c=>h+='<th>'+c.lb+'</th>');
+  h+='</tr></thead><tbody>';
+
+  const funnels=['Attract','Engage','Acquire'];
+  funnels.forEach(funnel=>{
+    const fRows=rows.filter(r=>r['Funnel Phase']===funnel);
+    if(!fRows.length)return;
+    const fMap=aggByKey(fRows,r=>funnel);
+    const fd=fMap.get(funnel);if(!fd)return;
+    fd._esvr=sd(fd.esv,fd.pv);fd._fsur=sd(fd.fsu,fd.pv);fd._psur=sd(fd.psu,fd.pv);
+    const fShare=gt.mc>0?fd.mc/gt.mc:0;
+    const fColor=AUD_FUNNEL_COLORS[funnel]||'#888';
+    const audSet=new Set(fRows.map(r=>r['Audience']));
+    const fid='aud-f-'+funnel.toLowerCase();
+
+    // Funnel header row
+    h+=`<tr class="aud-funnel-row aud-funnel-${funnel.toLowerCase()}">`;
+    h+=`<td><span style="display:inline-flex;align-items:center;gap:8px;">`
+      +`<span style="width:11px;height:11px;border-radius:50%;background:${fColor};display:inline-block;flex-shrink:0;"></span>`
+      +`<span>${funnel}</span>`
+      +`<span style="font-size:12px;font-weight:600;color:var(--dark-50);">(${audSet.size})</span>`
+      +`<button class="aud-show-btn" onclick="toggleAudRows('${fid}')" id="${fid}-btn">Show Audiences</button>`
+      +`</span></td>`;
+    h+=`<td></td>`;
+    h+=shareCell(fShare,fColor);
+    cols.forEach(c=>h+='<td>'+c.f(fd[c.k])+delta(fd,pyMap,c.k)+'</td>');
+    h+='</tr>';
+
+    // Sub-rows (hidden by default)
+    // Build audience → group lookup
+    const audGroupMap={};
+    fRows.forEach(r=>{if(r['Audience']&&r['Audience Group'])audGroupMap[r['Audience']]=r['Audience Group'];});
+    const audMap=aggByKey(fRows,r=>r['Audience']);
+    const audArr=Array.from(audMap.values());
+    audArr.forEach(a=>{a._esvr=sd(a.esv,a.pv);a._fsur=sd(a.fsu,a.pv);a._psur=sd(a.psu,a.pv);});
+    audArr.sort((a,b)=>b[sortKey]-a[sortKey]);
+    audArr.forEach(a=>{
+      const aShare=gt.mc>0?a.mc/gt.mc:0;
+      const dotColor=audDotColor(a._key);
+      const grp=audGroupMap[a._key]||'—';
+      h+=`<tr class="aud-sub-row" data-fid="${fid}" style="display:none;">`;
+      h+=`<td><span style="display:inline-flex;align-items:center;gap:8px;">`
+        +`<span style="width:9px;height:9px;border-radius:50%;background:${dotColor};display:inline-block;flex-shrink:0;"></span>`
+        +`${a._key}</span></td>`;
+      h+=`<td style="font-size:12px;color:var(--dark-50);font-weight:500;text-align:center;">${grp}</td>`;
+      h+=`<td class="aud-share-bar-cell"><div class="aud-share-cell-inner">`
+        +`<div class="aud-share-bar-bg"><div class="aud-share-bar-fill" style="width:${Math.min(100,aShare*100).toFixed(1)}%;background:${dotColor};"></div></div>`
+        +`<span class="aud-share-pct" style="font-weight:500;color:var(--dark-50);">${(aShare*100).toFixed(0)}%</span>`
+        +`</div></td>`;
+      cols.forEach(c=>h+='<td>'+c.f(a[c.k])+delta(a,pyMap,c.k)+'</td>');
+      h+='</tr>';
+    });
+  });
+
+  // Grand total
+  h+='<tr class="aud-grand-total">'
+    +'<td>Grand Total</td>'
+    +'<td></td>'
+    +shareCell(1,'var(--dark)');
+  cols.forEach(c=>h+='<td>'+c.f(gt[c.k])+delta(gt,pyMap,c.k)+'</td>');
+  h+='</tr></tbody>';
+  tbl.innerHTML=h;
+}
+
+function toggleAudRows(fid){
+  const rows=document.querySelectorAll(`tr.aud-sub-row[data-fid="${fid}"]`);
+  const btn=document.getElementById(fid+'-btn');
+  const hidden=rows.length&&rows[0].style.display==='none';
+  rows.forEach(r=>r.style.display=hidden?'':'none');
+  if(btn)btn.textContent=hidden?'Hide Audiences':'Show Audiences';
+}
+
+function buildAudDimDd(dim){
+  const opts=_audDimOpts[dim]();
+  const ddId='audDim'+dim+'Dd';
+  const dd=document.getElementById(ddId);
+  if(!dd)return;
+  dd.innerHTML=opts.map(v=>`<label class="aud-dim-dd-item"><input type="checkbox" value="${v}" ${_audDimSel[dim].has(v)?'checked':''}><span>${v}</span></label>`).join('');
+  dd.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      if(cb.checked)_audDimSel[dim].add(cb.value);
+      else _audDimSel[dim].delete(cb.value);
+      updateAudDimPill(dim);
+      if(window._curView==='audience')renderAudienceView();
+    });
+  });
+}
+
+function updateAudDimPill(dim){
+  const btn=document.getElementById('audDim'+dim+'Btn');
+  if(!btn)return;
+  const sel=_audDimSel[dim];
+  const label=dim==='Group'?'Audience Group':dim;
+  if(sel.size===0){btn.textContent='';btn.appendChild(document.createTextNode(label+': All '));btn.classList.remove('active');}
+  else if(sel.size===1){btn.textContent='';btn.appendChild(document.createTextNode(label+': '+[...sel][0]+' '));btn.classList.add('active');}
+  else{btn.textContent='';btn.appendChild(document.createTextNode(label+': '+sel.size+' selected '));btn.classList.add('active');}
+  const arr=document.createElement('span');arr.className='ms-arr';arr.innerHTML='&#9662;';
+  btn.appendChild(arr);
+}
+
+function toggleAudDim(dim){
+  const ddId='audDim'+dim+'Dd';
+  const dd=document.getElementById(ddId);
+  if(!dd)return;
+  const open=dd.style.display!=='none';
+  // Close all
+  ['Channel','Campaign','Funnel','Group','Audience'].forEach(d=>{
+    const el=document.getElementById('audDim'+d+'Dd');
+    if(el)el.style.display='none';
+  });
+  if(!open){buildAudDimDd(dim);dd.style.display='block';}
+}
+// Close dim dropdowns on outside click
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.aud-dim-pill-wrap')){
+    ['Channel','Campaign','Funnel','Group','Audience'].forEach(d=>{
+      const el=document.getElementById('audDim'+d+'Dd');
+      if(el)el.style.display='none';
+    });
+  }
+});
+
+function initAudienceFilters(){
+  buildMS('ms_aud_from',OPTS.fiscal_weeks,'Start Week',wkLabels);
+  buildMS('ms_aud_to',OPTS.fiscal_weeks,'End Week',wkLabels);
+  buildMS('ms_aud_single_week',OPTS.fiscal_weeks,'Select Week',wkLabels);
+  ['ms_aud_from','ms_aud_to','ms_aud_single_week'].forEach(id=>{
+    const listEl=document.getElementById(id+'_list');
+    if(listEl)listEl.addEventListener('change',()=>{msLbl(id);if(window._curView==='audience')renderAudienceView();});
+  });
+  ['Channel','Campaign','Funnel','Group','Audience'].forEach(updateAudDimPill);
+  updateAudPeriodLabel();
+}
+
+function resetAudFilters(){
+  Object.keys(_audDimSel).forEach(d=>_audDimSel[d].clear());
+  ['Channel','Campaign','Funnel','Group','Audience'].forEach(updateAudDimPill);
+  ['ms_aud_from','ms_aud_to','ms_aud_single_week'].forEach(msReset);
+  setAudPeriod('ytd');
+  setAudCompare('itpy');
+  if(window._curView==='audience')renderAudienceView();
+}
+
+function msSA(id){
+  document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>{if(!c.closest('label').style.display||c.closest('label').style.display!=='none')c.checked=true;});
+  msLbl(id);
+  if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
+  else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
+  else{applyFilters();}
+}
+function msCL(id){
+  document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  msLbl(id);
+  if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
+  else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
+  else{applyFilters();}
 }
 
 function toggleWoW(id){
