@@ -56,6 +56,19 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .cdd-funnel-filter label{font-size:11px;font-weight:600;color:var(--dark-80);}
 .cdd-funnel-filter .ms-wrap{width:180px;}
 .cdd-divider{border:none;border-top:1px solid var(--border);margin:28px 0;}
+.cdd-summary{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:18px 24px;}
+.cdd-summary-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.cdd-summary-icon{font-size:16px;}
+.cdd-summary-title{font-size:13px;font-weight:800;color:var(--dark);letter-spacing:-.1px;}
+.cdd-summary-period{font-size:11px;font-weight:600;color:var(--dark-50);margin-left:auto;background:var(--cream-2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}
+.cdd-summary-body{font-size:13px;color:var(--dark-80);line-height:1.65;}
+.cdd-summary-body ul{margin:6px 0 6px 0;padding-left:18px;}
+.cdd-summary-body li{margin-bottom:5px;}
+.cdd-summary-body li:last-child{margin-bottom:0;}
+.cdd-summary-body strong{color:var(--dark);font-weight:700;}
+.cdd-summary-hl-pos{color:var(--green);font-weight:700;}
+.cdd-summary-hl-neg{color:var(--radish);font-weight:700;}
+.cdd-summary-hl-neu{color:var(--dark-50);font-weight:600;}
 @media(max-width:900px){.cdd-grid{grid-template-columns:1fr;}}
 
 /* FILTERS */
@@ -75,6 +88,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .ms-wrap.open .ms-arr{transform:rotate(180deg);}
 .ms-dd{position:absolute;top:calc(100% + 4px);left:0;min-width:max(100%,190px);width:max-content;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:1000;display:none;flex-direction:column;}
 .ms-wrap.open .ms-dd{display:flex;}
+.ms-wrap.dd-right .ms-dd{left:auto;right:0;}
 .ms-dd::-webkit-scrollbar{width:5px;}
 .ms-dd::-webkit-scrollbar-track{background:var(--cream);}
 .ms-dd::-webkit-scrollbar-thumb{background:var(--dark-30);border-radius:3px;}
@@ -208,13 +222,13 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .fwow-funnel-name.engage-name{color:#9333EA;}
 .fwow-funnel-name.acquire-name{color:#1F845A;}
 .fwow-card-body{padding:4px 0;}
-.fwow-metric-row{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:8px;padding:11px 20px;border-bottom:1px solid var(--border);}
+.fwow-metric-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;gap:8px;padding:11px 20px;border-bottom:1px solid var(--border);}
 .fwow-metric-row:last-child{border-bottom:none;}
 .fwow-metric-name{font-size:12px;font-weight:600;color:var(--dark-50);}
-.fwow-week-col{text-align:right;min-width:72px;}
+.fwow-week-col{text-align:center;min-width:72px;}
 .fwow-week-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--dark-30);margin-bottom:2px;}
 .fwow-week-val{font-size:14px;font-weight:700;color:var(--dark);}
-.fwow-delta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:62px;}
+.fwow-delta{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:62px;}
 .fwow-delta-abs,.fwow-delta-pct{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;}
 .fwow-good .fwow-delta-abs,.fwow-good .fwow-delta-pct{background:var(--green-lt);color:var(--green);}
 .fwow-bad  .fwow-delta-abs,.fwow-bad  .fwow-delta-pct{background:var(--red-lt);color:var(--radish);}
@@ -368,7 +382,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
   <!-- FUNNEL WOW SNAPSHOT CARDS -->
   <div class="fwow-section" id="fwowSection">
     <div class="fwow-header">
-      <div class="fwow-title">Week-over-Week Snapshot by Funnel</div>
+      <div class="fwow-title">WoW Snapshot by Funnel</div>
       <div class="fwow-weeks" id="fwowWeeks"></div>
     </div>
     <div class="fwow-grid">
@@ -411,7 +425,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
   <!-- WOW -->
   <div class="card full" id="wowSection" style="margin-bottom:20px;overflow:hidden;">
     <div class="wow-header">
-      <div><div class="wow-title">Week-over-Week Snapshot</div><div class="wow-sub" id="wowSub"></div></div>
+      <div><div class="wow-title">WoW Snapshot</div><div class="wow-sub" id="wowSub"></div></div>
       <div style="background:var(--banana);color:var(--dark);font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;letter-spacing:.5px;">LAST 2 WEEKS</div>
     </div>
     <div class="wow-body"><table class="wow-tbl" id="wowTbl"></table></div>
@@ -420,18 +434,33 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
   <!-- PIE CHARTS — 3 columns -->
   <div class="pie-row">
     <div class="card"><div class="card-inner">
-      <div class="card-title">Media Cost by Funnel Phase</div>
-      <div class="card-subtitle">Share of total media spend</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">
+        <div>
+          <div class="card-title">Media Cost x Funnel Phase</div>
+          <div class="card-subtitle">Share of total media spend</div>
+        </div>
+        <div class="ms-wrap dd-right" id="ms_pie1_channel" style="width:140px;flex-shrink:0;"></div>
+      </div>
       <div class="chart-wrap-pie"><canvas id="pieFunnel"></canvas></div>
     </div></div>
     <div class="card"><div class="card-inner">
-      <div class="card-title">Media Cost by Partner &amp; Channel</div>
-      <div class="card-subtitle">Top partners by spend</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">
+        <div>
+          <div class="card-title">Media Cost x Channel x Partner</div>
+          <div class="card-subtitle">Partner spend by channel</div>
+        </div>
+        <div class="ms-wrap dd-right" id="ms_pie2_channel" style="width:140px;flex-shrink:0;"></div>
+      </div>
       <div class="chart-wrap-pie"><canvas id="piePartner"></canvas></div>
     </div></div>
     <div class="card"><div class="card-inner">
-      <div class="card-title">Media Cost by Funnel &amp; Channel</div>
-      <div class="card-subtitle">Funnel phase × channel type</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">
+        <div>
+          <div class="card-title">Media Cost x Channel x Funnel</div>
+          <div class="card-subtitle">Funnel phase by channel</div>
+        </div>
+        <div class="ms-wrap dd-right" id="ms_pie3_channel" style="width:140px;flex-shrink:0;"></div>
+      </div>
       <div class="chart-wrap-pie"><canvas id="pieFunnelChannel"></canvas></div>
     </div></div>
   </div>
@@ -536,10 +565,12 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
       </div>
       <!-- Display RW Summary -->
       <div id="rwSummaryDisplay" class="rw-card" style="display:none;margin-bottom:20px;"></div>
+      <!-- Display Channel Summary -->
+      <div id="cddSummaryDisplay" style="display:none;margin-bottom:20px;"></div>
       <!-- Display Funnel WoW -->
       <div class="fwow-section" id="fwowDisplay" style="margin-bottom:20px;">
         <div class="fwow-header">
-          <div class="fwow-title">Week-over-Week Snapshot by Funnel — Display</div>
+          <div class="fwow-title">WoW Snapshot by Funnel — Display</div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div class="fwow-weeks" id="fwowDisplayWeeks"></div>
             <button class="btn-fwow-collapse" id="dispWoWBtn" onclick="toggleWoW('dispWoW')">Collapse</button>
@@ -599,10 +630,12 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
       </div>
       <!-- Video RW Summary -->
       <div id="rwSummaryVideo" class="rw-card" style="display:none;margin-bottom:20px;"></div>
+      <!-- Video Channel Summary -->
+      <div id="cddSummaryVideo" style="display:none;margin-bottom:20px;"></div>
       <!-- Video Funnel WoW -->
       <div class="fwow-section" id="fwowVideo" style="margin-bottom:20px;">
         <div class="fwow-header">
-          <div class="fwow-title">Week-over-Week Snapshot by Funnel — Video</div>
+          <div class="fwow-title">WoW Snapshot by Funnel — Video</div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div class="fwow-weeks" id="fwowVideoWeeks"></div>
             <button class="btn-fwow-collapse" id="vidWoWBtn" onclick="toggleWoW('vidWoW')">Collapse</button>
@@ -837,6 +870,15 @@ function initFilters(){
   buildMS('ms_funnel',OPTS.funnels,'All Funnels');
   buildMS('ms_audience_group',OPTS.audience_groups,'All Groups');
   buildMS('ms_audience',OPTS.audiences,'All Audiences');
+  // Pie chart channel filters (single-select feel, but use multiselect for consistency)
+  buildMS('ms_pie1_channel',OPTS.channels,'All Channels');
+  buildMS('ms_pie2_channel',OPTS.channels,'All Channels');
+  buildMS('ms_pie3_channel',OPTS.channels,'All Channels');
+  // Re-render pies when pie channel filters change
+  ['ms_pie1_channel','ms_pie2_channel','ms_pie3_channel'].forEach(id=>{
+    const listEl=document.getElementById(id+'_list');
+    if(listEl)listEl.addEventListener('change',()=>{msLbl(id);renderPies(filt(RAW));});
+  });
 }
 function getF(){return{week:msVals('ms_week'),chan:msVals('ms_channel'),part:msVals('ms_partner'),camp:msVals('ms_campaign'),fun:msVals('ms_funnel'),ag:msVals('ms_audience_group'),aud:msVals('ms_audience')};}
 function resetFilters(){['ms_week','ms_channel','ms_partner','ms_campaign','ms_funnel','ms_audience_group','ms_audience'].forEach(msReset);applyFilters();}
@@ -1264,6 +1306,33 @@ const C_ACQ=[
   {k:'cpc',  lb:'CPC',               f:F.cf,   kpi:false},
 ];
 
+function renderPies(baseRows){
+  function filterByChan(id,rows){
+    const ch=msVals(id);
+    return ch.length?rows.filter(r=>ch.includes(r['Channel'])):rows;
+  }
+  // Pie 1 — Media Cost x Funnel Phase
+  const r1=filterByChan('ms_pie1_channel',baseRows);
+  const fM={};
+  r1.forEach(r=>{const fp=r['Funnel Phase']||'?';fM[fp]=(fM[fp]||0)+(r['Media Cost']||0);});
+  const fl=Object.keys(fM).sort();
+  donut('pieFunnel',fl,fl.map(k=>fM[k]),[CLR.teal,CLR.grape,CLR.grn]);
+
+  // Pie 2 — Media Cost x Channel x Partner
+  const r2=filterByChan('ms_pie2_channel',baseRows);
+  const pM={};
+  r2.forEach(r=>{const pr=r['Partner']||'?',ch=r['Channel']||'?';const k=pr+' / '+ch;pM[k]=(pM[k]||0)+(r['Media Cost']||0);});
+  const pl=Object.keys(pM).sort((a,b)=>pM[b]-pM[a]).slice(0,10);
+  donut('piePartner',pl,pl.map(k=>pM[k]),[CLR.dark,'#3D6B9E',CLR.teal,CLR.grape,CLR.grn,CLR.rad,CLR.org,CLR.blue,'#C026D3','#475569']);
+
+  // Pie 3 — Media Cost x Channel x Funnel
+  const r3=filterByChan('ms_pie3_channel',baseRows);
+  const fcM={};
+  r3.forEach(r=>{const fp=r['Funnel Phase']||'?',ch=r['Channel']||'?';const k=ch+' / '+fp;fcM[k]=(fcM[k]||0)+(r['Media Cost']||0);});
+  const fcl=Object.keys(fcM).sort((a,b)=>fcM[b]-fcM[a]);
+  donut('pieFunnelChannel',fcl,fcl.map(k=>fcM[k]),['#007C89','#32a5b3','#9333EA','#b56df0','#1F845A','#34c77a','#F59E0B','#FF4F23','#0066CC','#475569']);
+}
+
 function renderAll(rows){
   const all=agg(rows);
   const lbs=all.map(r=>r.fw.replace('Week ','W'));
@@ -1277,19 +1346,7 @@ function renderAll(rows){
   renderFunnelWoW(rows);
 
   // Pies
-  const fM={},pM={},fcM={};
-  rows.forEach(r=>{
-    const fp=r['Funnel Phase']||'?',ch=r['Channel']||'?',pr=r['Partner']||'?',mc=r['Media Cost']||0;
-    fM[fp]=(fM[fp]||0)+mc;
-    pM[pr+' / '+ch]=(pM[pr+' / '+ch]||0)+mc;
-    fcM[fp+' / '+ch]=(fcM[fp+' / '+ch]||0)+mc;
-  });
-  const fl=Object.keys(fM).sort();
-  donut('pieFunnel',fl,fl.map(k=>fM[k]),[CLR.teal,CLR.grape,CLR.grn]);
-  const pl=Object.keys(pM).sort((a,b)=>pM[b]-pM[a]).slice(0,10);
-  donut('piePartner',pl,pl.map(k=>pM[k]),[CLR.dark,'#3D6B9E',CLR.teal,CLR.grape,CLR.grn,CLR.rad,CLR.org,CLR.blue,'#C026D3','#475569']);
-  const fcl=Object.keys(fcM).sort((a,b)=>fcM[b]-fcM[a]);
-  donut('pieFunnelChannel',fcl,fcl.map(k=>fcM[k]),['#007C89','#32a5b3','#9333EA','#b56df0','#1F845A','#34c77a','#F59E0B','#FF4F23','#0066CC','#475569']);
+  renderPies(rows);
 
   renderTbl('overallTable',all,C_OVR);
 
@@ -1670,6 +1727,388 @@ function togglePartnerScorecard(ch){
   if(btn)btn.textContent=collapsed?'Collapse':'Expand';
 }
 
+// ── CHANNEL PERFORMANCE SUMMARY ──────────────────────────────────────────
+function renderChannelSummary(rows, channel, elId){
+  const el=document.getElementById(elId);
+  if(!el)return;
+  if(!rows.length){el.style.display='none';return;}
+
+  // ── Helpers ──────────────────────────────────────────────────────────
+  function aggRows(rr){
+    const a={mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0};
+    rr.forEach(r=>{a.mc+=(r['Media Cost']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);a.pv+=(r['Page Views']||0);a.esv+=(r['ESV']||0);a.psu+=(r['Plan Paid Signups']||0);a.fsu+=(r['Merged Free Signup']||0);});
+    a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.ctr=sd(a.cl,a.imp)*100;
+    a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);
+    return a;
+  }
+  function chg(cur,pri){if(!pri||pri===0)return null;return((cur-pri)/Math.abs(pri))*100;}
+  function itpIdx(cur,pri){if(!pri||pri===0||!cur)return null;return Math.round((cur/pri)*100);}
+  function fmt$(v){return'$'+Math.round(v).toLocaleString();}
+  function fmtN(v){return Math.round(v).toLocaleString();}
+  function fmtPct(v,sign=true){return(sign&&v>=0?'+':'')+v.toFixed(1)+'%';}
+  function fmtCf(v){return'$'+v.toFixed(2);}
+  function hl(txt,d){return`<span class="cdd-summary-hl-${d}">${txt}</span>`;}
+  function dirUp(p){return p===null?'neu':p>0?'pos':'neg';}   // higher = good
+  function dirDn(p){return p===null?'neu':p<0?'pos':'neg';}   // lower  = good
+  function pBadge(idx,goodDown){
+    if(idx===null)return'';
+    const d=goodDown?(idx<100?'pos':'neg'):(idx>100?'pos':'neg');
+    return` ${hl('ITPW '+idx,d)}`;
+  }
+  function yBadge(idx,goodDown){
+    if(idx===null)return'';
+    const d=goodDown?(idx<100?'pos':'neg'):(idx>100?'pos':'neg');
+    return`<span style="color:var(--dark);font-weight:600;">;</span> ${hl('ITPY '+idx,d)}`;
+  }
+
+  // ── Weekly sorted aggregates ──────────────────────────────────────────
+  const wkMap=new Map();
+  rows.forEach(r=>{
+    const k=r['Fiscal Week'];if(!k)return;
+    if(!wkMap.has(k))wkMap.set(k,{fw:k,rows:[]});
+    wkMap.get(k).rows.push(r);
+  });
+  const sw=Array.from(wkMap.values())
+    .sort((a,b)=>parseInt(a.fw.replace('Week ',''))-parseInt(b.fw.replace('Week ','')))
+    .map(w=>({fw:w.fw,...aggRows(w.rows)}));
+  if(!sw.length){el.style.display='none';return;}
+
+  // Always anchor on the latest week in the data
+  const cw=sw[sw.length-1];
+  const pw=sw.length>=2?sw[sw.length-2]:null;
+  const pyD=RW_PY[cw.fw]||null;
+  const cwLabel=cw.fw.replace('Week ','W');
+  const pwLabel=pw?pw.fw.replace('Week ','W'):null;
+
+  // ITPW / ITPY index values
+  const itpwMC   =itpIdx(cw.mc,   pw?.mc);
+  const itpwImp  =itpIdx(cw.imp,  pw?.imp);
+  const itpwCPM  =itpIdx(cw.cpm,  pw?.cpm);
+  const itpwCPC  =itpIdx(cw.cpc,  pw?.cpc);
+  const itpwPSU  =itpIdx(cw.psu,  pw?.psu);
+  const itpwCPPSU=itpIdx(cw.cppsu,pw?.cppsu);
+  const itpwESV  =itpIdx(cw.esv,  pw?.esv);
+  const itpwCPESV=itpIdx(cw.cpesv,pw?.cpesv);
+  const itpwFSU  =itpIdx(cw.fsu,  pw?.fsu);
+  const itpwCTR  =itpIdx(cw.ctr,  pw?.ctr);
+
+  const itpyMC   =itpIdx(cw.mc,   pyD?.mc);
+  const itpyCPM  =itpIdx(cw.cpm,  pyD?.cpm);
+  const itpyPSU  =itpIdx(cw.psu,  pyD?.psu);
+  const itpyCPPSU=itpIdx(cw.cppsu,pyD?.cppsu);
+  const itpyESV  =itpIdx(cw.esv,  pyD?.esv);
+  const itpyCPESV=itpIdx(cw.cpesv,pyD?.cpesv);
+  const itpyFSU  =itpIdx(cw.fsu,  pyD?.fsu);
+  const itpyCPFSU=itpIdx(cw.cpfsu,pyD?.cpfsu);
+
+  // ── CW per-dimension aggregates ───────────────────────────────────────
+  const cwRows=rows.filter(r=>r['Fiscal Week']===cw.fw);
+  const pwRows=pw?rows.filter(r=>r['Fiscal Week']===pw.fw):[];
+
+  function dimAgg(rr,field){
+    const m=new Map();
+    rr.forEach(r=>{
+      const k=r[field]||'Unknown';
+      if(!m.has(k))m.set(k,{mc:0,imp:0,cl:0,pv:0,esv:0,psu:0,fsu:0});
+      const a=m.get(k);
+      a.mc+=(r['Media Cost']||0);a.imp+=(r['Impressions']||0);a.cl+=(r['Clicks']||0);
+      a.pv+=(r['Page Views']||0);a.esv+=(r['ESV']||0);a.psu+=(r['Plan Paid Signups']||0);a.fsu+=(r['Merged Free Signup']||0);
+    });
+    m.forEach(a=>{a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);a.ctr=sd(a.cl,a.imp)*100;});
+    return m;
+  }
+
+  const cwFunnels =dimAgg(cwRows,'Funnel Phase');
+  const pwFunnels =dimAgg(pwRows,'Funnel Phase');
+  const cwPartners=dimAgg(cwRows,'Partner');
+  const pwPartners=dimAgg(pwRows,'Partner');
+  const cwCampaigns=dimAgg(cwRows,'Campaign');
+  const cwGroups  =dimAgg(cwRows,'Audience Group');
+  const cwAuds    =dimAgg(cwRows,'Audience');
+  const pwAuds    =dimAgg(pwRows,'Audience');
+
+  const cwTotal=aggRows(cwRows);
+  const cwMC=cwTotal.mc;
+
+  // Sort helpers
+  function sortedByMC(m){return[...m.entries()].sort((a,b)=>b[1].mc-a[1].mc);}
+  function sortedByPSU(m){return[...m.entries()].sort((a,b)=>b[1].psu-a[1].psu);}
+  function sortedByESV(m){return[...m.entries()].sort((a,b)=>b[1].esv-a[1].esv);}
+  function sharePct(mc){return cwMC>0?(mc/cwMC*100).toFixed(0)+'%':'—';}
+
+  // ── Build narrative bullets ───────────────────────────────────────────
+  const bullets=[];
+
+  // ─── BULLET 1: SPEND ─────────────────────────────────────────────────
+  {
+    const spendIdx =pBadge(itpwMC,false)   +yBadge(itpyMC,false);
+    const cppsuIdx =pBadge(itpwCPPSU,true) +yBadge(itpyCPPSU,true);
+    const cpesvIdx =pBadge(itpwCPESV,true) +yBadge(itpyCPESV,true);
+    const cpfsuIdx =pBadge(itpwFSU,false);  // use FSU as proxy; CPFSU index
+    const parts=[`Spend ${spendIdx}`];
+    if(cw.psu>0)  parts.push(`CPPSU ${cppsuIdx}`);
+    if(cw.esv>0)  parts.push(`CPESV ${cpesvIdx}`);
+    if(cw.fsu>0)  parts.push(`CPFSU ${pBadge(itpIdx(cw.cpfsu,pw?.cpfsu),true)}${yBadge(itpyCPFSU,true)}`);
+    bullets.push(`<strong>Spend:</strong> ${cwLabel} — ${parts.join(' &nbsp;|&nbsp; ')}.`);
+  }
+
+  // ─── BULLET 2: CONVERSIONS ───────────────────────────────────────────
+  {
+    const parts=[];
+    if(cw.psu>0) parts.push(`PSU ${pBadge(itpwPSU,false)}${yBadge(itpyPSU,false)}`);
+    if(cw.esv>0) parts.push(`ESV ${pBadge(itpwESV,false)}${yBadge(itpyESV,false)}`);
+    if(cw.fsu>0) parts.push(`FSU ${pBadge(itpwFSU,false)}${yBadge(itpyFSU,false)}`);
+    if(parts.length) bullets.push(`<strong>Conversions:</strong> ${parts.join(' &nbsp;|&nbsp; ')}.`);
+  }
+
+  // ─── BULLET 3: PARTNER / FUNNEL / TACTIC INSIGHTS ────────────────────
+  {
+    const funnelSubItems=[];
+
+    // Per-funnel sub-bullets — narrative sentence style
+    ['Attract','Engage','Acquire'].forEach(fName=>{
+      const fa=cwFunnels.get(fName);
+      if(!fa||fa.mc===0) return;
+      const fp=pwFunnels.get(fName)||null;
+
+      // Spend direction language
+      const spendItpw=itpIdx(fa.mc,fp?.mc);
+      const spendDir=spendItpw===null?'was flat':(spendItpw>105?'increased':'spendItpw<95'?'decreased':'was relatively flat');
+      // More nuanced direction
+      function spendVerb(idx){if(idx===null)return'was flat WoW';if(idx>=110)return'increased WoW';if(idx>=103)return'increased modestly WoW';if(idx>=98)return'was relatively flat WoW';if(idx>=90)return'declined modestly WoW';return'declined WoW';}
+      const spVerb=spendVerb(spendItpw);
+
+      // Top partners within this funnel (by spend, up to 3)
+      const fRows=cwRows.filter(r=>r['Funnel Phase']===fName);
+      const fpwRows=pwRows.filter(r=>r['Funnel Phase']===fName);
+      const fPartAgg=dimAgg(fRows,'Partner');
+      const fPartPwAgg=dimAgg(fpwRows,'Partner');
+      const topPartners=sortedByMC(fPartAgg).filter(([,a])=>a.mc>0).slice(0,3);
+
+      // Top audiences within this funnel (by relevant KPI)
+      const fAudAgg=dimAgg(fRows,'Audience');
+      const fAudPwAgg=dimAgg(fpwRows,'Audience');
+      let topAuds=[];
+      if(fName==='Acquire') topAuds=sortedByPSU(fAudAgg).filter(([,a])=>a.psu>0).slice(0,2);
+      else if(fName==='Engage') topAuds=(sortedByESV(fAudAgg).filter(([,a])=>a.esv>0).slice(0,2).length?sortedByESV(fAudAgg).filter(([,a])=>a.esv>0).slice(0,2):sortedByMC(fAudAgg).filter(([,a])=>a.fsu>0).slice(0,2));
+      else topAuds=sortedByMC(fAudAgg).slice(0,2);
+
+      // Most notable audience — biggest KPI swing or top KPI contributor
+      function biggestAudShift(agg,pwAgg,kpiKey,goodDown){
+        let best=null,bestD=0;
+        agg.forEach((aA,aName)=>{
+          const aPw=pwAgg.get(aName);
+          if(!aPw) return;
+          const idx=itpIdx(aA[kpiKey],aPw[kpiKey]);
+          if(idx===null) return;
+          const d=Math.abs(idx-100);
+          if(d>bestD){bestD=d;best={name:aName,idx,goodDown,val:aA[kpiKey],pw:aPw[kpiKey]};}
+        });
+        return best;
+      }
+
+      // Hypothesis helper
+      function hypothesis(funnelName,kpiKey,idx,goodDown){
+        const improved=(goodDown?idx<100:idx>100);
+        if(funnelName==='Attract'){
+          if(kpiKey==='cpm') return improved?'likely driven by favorable inventory pricing, audience mix shift, or programmatic bid optimizations':'may reflect increased competition for inventory, broader audience targeting, or seasonal CPM pressure';
+          if(kpiKey==='ctr') return improved?'suggesting stronger creative resonance or more qualified audience targeting':'may indicate creative fatigue, audience saturation, or a shift toward broader reach audiences';
+        }
+        if(funnelName==='Engage'){
+          if(kpiKey==='esv'||kpiKey==='cpesv') return improved?'likely reflecting stronger mid-funnel engagement, improved landing page experience, or algorithmic optimization toward high-intent users':'may be due to audience mix changes, creative rotation, or programmatic pacing adjustments reducing session quality';
+          if(kpiKey==='fsu'||kpiKey==='cpfsu') return improved?'potentially driven by higher-intent audience segments, improved sign-up flow, or increased mid-funnel pressure from partner mix':'may reflect audience saturation, shift to broader segments, or seasonal drop in mid-funnel conversion intent';
+        }
+        if(funnelName==='Acquire'){
+          if(kpiKey==='psu'||kpiKey==='cppsu') return improved?'likely driven by high-intent audience targeting, strong offer resonance, or programmatic bid strategy optimizing toward converters':'may be due to competitive pressure, audience exhaustion, creative wear-out, or seasonal softness in conversion intent';
+        }
+        return improved?'performance improvement may reflect favorable optimization or audience dynamics':'performance softness may reflect audience or creative fatigue — consider refreshing targeting or creative strategy';
+      }
+
+      // ── Build narrative ──────────────────────────────────────────────────
+      let sentences=[];
+
+      // Sentence 1: Spend + primary KPI
+      if(fName==='Attract'){
+        const cpmIdx=itpIdx(fa.cpm,fp?.cpm);
+        const ctrIdx=itpIdx(fa.ctr,fp?.ctr);
+        let s=`<strong>Attract</strong> spend ${spVerb}${pBadge(spendItpw,false)}`;
+        if(cpmIdx!==null){
+          const cpmDir=cpmIdx<97?'improved':'cpmIdx>103'?'increased':'remained stable';
+          function cpmVerb(i){return i<93?'improved significantly':i<97?'improved':i>107?'increased significantly':i>103?'increased':'remained stable';}
+          s+=`, with CPM ${cpmVerb(cpmIdx)}${pBadge(cpmIdx,true)}`;
+          if(ctrIdx!==null) s+=` and CTR ${ctrIdx>103?'strengthened':'ctrIdx<97'?'softened':'held steady'}${pBadge(ctrIdx,false)}`;
+          s+='.';
+        } else { s+='.'; }
+        sentences.push(s);
+
+        // Sentence 2: Partner drivers
+        if(topPartners.length){
+          const partStr=topPartners.map(([pName,pA])=>{
+            const pPw=fPartPwAgg.get(pName)||null;
+            return`<strong>${pName}</strong>${pBadge(itpIdx(pA.mc,pPw?.mc),false)} (CPM${pBadge(itpIdx(pA.cpm,pPw?.cpm),true)})`;
+          }).join(', ');
+          sentences.push(`Performance was primarily driven by ${partStr}.`);
+        }
+
+        // Sentence 3: Top audience + notable shift + hypothesis
+        const bigCPM=biggestAudShift(fAudAgg,fAudPwAgg,'cpm',true);
+        if(topAuds.length){
+          const audStr=topAuds.map(([aName,aA])=>{
+            const aPw=fAudPwAgg.get(aName)||null;
+            return`<strong>${aName}</strong> (CPM${pBadge(itpIdx(aA.cpm,aPw?.cpm),true)})`;
+          }).join(' and ');
+          let audS=`Top audiences by spend were ${audStr}.`;
+          if(bigCPM&&Math.abs(bigCPM.idx-100)>=10){
+            const dir=bigCPM.idx<100?'saw the most notable CPM improvement':'saw the largest CPM increase';
+            audS+=` <strong>${bigCPM.name}</strong> ${dir}${pBadge(bigCPM.idx,true)}, ${hypothesis('Attract','cpm',bigCPM.idx,true)}.`;
+          }
+          sentences.push(audS);
+        }
+
+      } else if(fName==='Engage'){
+        const esvIdx=fa.esv>0?itpIdx(fa.esv,fp?.esv):null;
+        const cpesvIdx=fa.esv>0?itpIdx(fa.cpesv,fp?.cpesv):null;
+        const fsuIdx=fa.fsu>0?itpIdx(fa.fsu,fp?.fsu):null;
+        const cpfsuIdx=fa.fsu>0?itpIdx(fa.cpfsu,fp?.cpfsu):null;
+        const hasPrimary=esvIdx!==null||fsuIdx!==null;
+
+        // Sentence 1: Spend + KPI outcome
+        let s=`<strong>Engage</strong> spend ${spVerb}${pBadge(spendItpw,false)}`;
+        if(esvIdx!==null){
+          function esvVerb(i){return i>107?'drove a significant lift in ESV':i>103?'drove improvement in ESV':i<93?'coincided with a notable decline in ESV':i<97?'saw softer ESV performance':'held with stable ESV';}
+          s+=` and ${esvVerb(esvIdx)}${pBadge(esvIdx,false)}`;
+          if(cpesvIdx!==null) s+=`, with CPESV ${cpesvIdx<100?'improving':'increasing'}${pBadge(cpesvIdx,true)}`;
+          if(fsuIdx!==null) s+=`. FSU also ${fsuIdx>100?'grew':'declined'}${pBadge(fsuIdx,false)}, with CPFSU ${cpfsuIdx!==null&&cpfsuIdx<100?'improving':'increasing'}${cpfsuIdx!==null?pBadge(cpfsuIdx,true):''}`;
+          s+='.';
+        } else if(fsuIdx!==null){
+          s+=`. FSU ${fsuIdx>103?'increased':'fsuIdx<97'?'declined':'was stable'}${pBadge(fsuIdx,false)}, with CPFSU ${cpfsuIdx!==null&&cpfsuIdx<100?'improving':'increasing'}${cpfsuIdx!==null?pBadge(cpfsuIdx,true):''}`;
+          s+='.';
+        } else { s+='.'; }
+        sentences.push(s);
+
+        // Sentence 2: Partner drivers
+        if(topPartners.length){
+          const partStr=topPartners.map(([pName,pA])=>{
+            const pPw=fPartPwAgg.get(pName)||null;
+            const kpiKey=pA.esv>0?'esv':'fsu';
+            const kpiLbl=pA.esv>0?'ESV':'FSU';
+            return`<strong>${pName}</strong>${pBadge(itpIdx(pA.mc,pPw?.mc),false)} (${kpiLbl}${pBadge(itpIdx(pA[kpiKey],pPw?.[kpiKey]),false)})`;
+          }).join(', ');
+          sentences.push(`This was primarily driven by ${partStr}.`);
+        }
+
+        // Sentence 3: Top audiences + notable shift + hypothesis
+        const primaryKey=fa.esv>0?'esv':'fsu';
+        const bigAudEng=biggestAudShift(fAudAgg,fAudPwAgg,primaryKey,false);
+        if(topAuds.length){
+          const audStr=topAuds.map(([aName,aA])=>{
+            const aPw=fAudPwAgg.get(aName)||null;
+            const kpiLbl=aA.esv>0?'ESV':'FSU';
+            const kpiKey=aA.esv>0?'esv':'fsu';
+            return`<strong>${aName}</strong> (${kpiLbl}${pBadge(itpIdx(aA[kpiKey],aPw?.[kpiKey]),false)})`;
+          }).join(' and ');
+          let audS=`Top contributing audiences were ${audStr}.`;
+          if(bigAudEng&&Math.abs(bigAudEng.idx-100)>=10){
+            const dir=bigAudEng.idx>100?'saw the most significant improvement':'saw the largest decline';
+            audS+=` <strong>${bigAudEng.name}</strong> ${dir} (${primaryKey.toUpperCase()}${pBadge(bigAudEng.idx,false)}), ${hypothesis('Engage',primaryKey,bigAudEng.idx,false)}.`;
+          }
+          sentences.push(audS);
+        }
+
+      } else if(fName==='Acquire'){
+        const psuIdx=fa.psu>0?itpIdx(fa.psu,fp?.psu):null;
+        const cppsuIdx=fa.psu>0?itpIdx(fa.cppsu,fp?.cppsu):null;
+
+        // Sentence 1: Spend + PSU outcome
+        let s=`<strong>Acquire</strong> spend ${spVerb}${pBadge(spendItpw,false)}`;
+        if(psuIdx!==null){
+          function psuVerb(i){return i>107?'resulting in a strong lift in PSU':i>103?'with PSU improving':i<93?'with PSU declining notably':i<97?'with PSU declining modestly':'with PSU holding relatively steady';}
+          s+=`, ${psuVerb(psuIdx)}${pBadge(psuIdx,false)}`;
+          if(cppsuIdx!==null) s+=` and CPPSU ${cppsuIdx<100?'improving':'increasing'}${pBadge(cppsuIdx,true)}`;
+          s+='.';
+        } else { s+='.'; }
+        sentences.push(s);
+
+        // Sentence 2: Partner drivers
+        if(topPartners.length){
+          const partStr=topPartners.map(([pName,pA])=>{
+            const pPw=fPartPwAgg.get(pName)||null;
+            return`<strong>${pName}</strong>${pBadge(itpIdx(pA.mc,pPw?.mc),false)} (PSU${pBadge(itpIdx(pA.psu,pPw?.psu),false)})`;
+          }).join(', ');
+          sentences.push(`Conversion performance was led by ${partStr}.`);
+        }
+
+        // Sentence 3: Top audiences + notable shift + hypothesis
+        const bigAudAcq=biggestAudShift(fAudAgg,fAudPwAgg,'psu',false);
+        if(topAuds.length){
+          const audStr=topAuds.map(([aName,aA])=>{
+            const aPw=fAudPwAgg.get(aName)||null;
+            return`<strong>${aName}</strong> (PSU${pBadge(itpIdx(aA.psu,aPw?.psu),false)}, CPPSU${pBadge(itpIdx(aA.cppsu,aPw?.cppsu),true)})`;
+          }).join(' and ');
+          let audS=`Top converting audiences were ${audStr}.`;
+          if(bigAudAcq&&Math.abs(bigAudAcq.idx-100)>=10){
+            const dir=bigAudAcq.idx>100?'saw the most notable PSU growth':'saw the most significant PSU decline';
+            audS+=` <strong>${bigAudAcq.name}</strong> ${dir}${pBadge(bigAudAcq.idx,false)}, ${hypothesis('Acquire','psu',bigAudAcq.idx,false)}.`;
+          }
+          sentences.push(audS);
+        }
+      }
+
+      funnelSubItems.push(`<li style="margin-bottom:8px;">${sentences.join(' ')}</li>`);
+    });
+
+    // Notable partner WoW shift (≥20%, min $5k)
+    const shiftLines=[];
+    let bigMover=null,bigDelta=0;
+    cwPartners.forEach((cP,name)=>{
+      const pP=pwPartners.get(name);
+      if(cP.mc>0&&pP&&pP.mc>5000){const d=Math.abs(chg(cP.mc,pP.mc)||0);if(d>bigDelta&&d>=20){bigDelta=d;bigMover={name,pct:chg(cP.mc,pP.mc)};}}
+    });
+    if(bigMover){
+      const verb=bigMover.pct>0?'scaled up':'pulled back';
+      const hyp=bigMover.pct>0?'possible pacing ramp or campaign expansion — monitor CPM and audience efficiency':'possible budget cap, creative rotation, or pacing pull-back — verify delivery is on track';
+      shiftLines.push(`<strong>Notable shift:</strong> <strong>${bigMover.name}</strong> ${verb} ${hl(fmtPct(bigMover.pct)+' WoW',bigMover.pct>0?'pos':'neg')} — ${hyp}.`);
+    }
+
+    // Notable audience WoW shift (PSU ≥25% or spend ≥30%)
+    let bigAud=null,bigAudD=0;
+    cwAuds.forEach((cA,name)=>{
+      const pA=pwAuds.get(name);
+      if(pA&&pA.psu>0){const d=Math.abs(chg(cA.psu,pA.psu)||0);if(d>bigAudD&&d>=25){bigAudD=d;bigAud={name,pct:chg(cA.psu,pA.psu),cpct:chg(cA.cppsu,pA.cppsu),metric:'PSU'};}}
+    });
+    if(!bigAud){
+      cwAuds.forEach((cA,name)=>{
+        const pA=pwAuds.get(name);
+        if(pA&&pA.mc>3000){const d=Math.abs(chg(cA.mc,pA.mc)||0);if(d>bigAudD&&d>=30){bigAudD=d;bigAud={name,pct:chg(cA.mc,pA.mc),cpct:null,metric:'spend'};}}
+      });
+    }
+    if(bigAud){
+      const isPos=bigAud.pct>0;
+      const effNote=bigAud.cpct!=null?(bigAud.cpct<0?', with improved CPPSU efficiency':', with higher CPPSU'):'';
+      const hyp=isPos?'strong audience resonance or increased budget allocation — consider scaling if efficiency holds':'possible audience saturation, creative wear-out, or targeting shift — review frequency caps and audience refresh strategy';
+      shiftLines.push(`<strong>Audience shift:</strong> <strong>${bigAud.name}</strong> ${bigAud.metric} ${isPos?'grew':'declined'} ${hl(fmtPct(bigAud.pct)+' WoW',isPos?'pos':'neg')}${effNote} — ${hyp}.`);
+    }
+    shiftLines.forEach(l=>funnelSubItems.push(`<li style="margin-bottom:5px;">${l}</li>`));
+
+    if(funnelSubItems.length){
+      bullets.push(`<strong>Partner/Funnel/Tactic Insights:</strong><ul style="margin:6px 0 0 0;padding-left:16px;">${funnelSubItems.join('')}</ul>`);
+    }
+  }
+
+  // ── Render ────────────────────────────────────────────────────────────
+  const chColor=channel==='Programmatic Display'?'#0066CC':'#FF4F23';
+  const li=bullets.map(b=>`<li>${b}</li>`).join('');
+  el.innerHTML=`<div class="cdd-summary">
+    <div class="cdd-summary-header">
+      <span style="width:10px;height:10px;border-radius:50%;background:${chColor};display:inline-block;flex-shrink:0;"></span>
+      <span class="cdd-summary-title">${channel} — Performance Summary</span>
+      <span class="cdd-summary-period">Latest Week: ${cwLabel}${pw?' vs '+pwLabel:''}</span>
+    </div>
+    <div class="cdd-summary-body"><ul>${li}</ul></div>
+  </div>`;
+  el.style.display='';
+}
+
 // ── MAIN CHANNEL VIEW RENDER ──────────────────────────────────────────────
 function renderChannelView(rows){
   // Apply CDD filters
@@ -1682,6 +2121,9 @@ function renderChannelView(rows){
   // RW Summaries
   renderRWSummaryFor(dispRows,'rwSummaryDisplay');
   renderRWSummaryFor(vidRows, 'rwSummaryVideo');
+  // Channel Summaries
+  renderChannelSummary(dispRows,'Programmatic Display','cddSummaryDisplay');
+  renderChannelSummary(vidRows, 'Video',               'cddSummaryVideo');
   // Funnel WoW
   renderFunnelWoWFor(dispRows,'Display','fwowDisplayWeeks');
   renderFunnelWoWFor(vidRows, 'Video',  'fwowVideoWeeks');
@@ -2116,6 +2558,7 @@ function msSA(id){
   msLbl(id);
   if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
   else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
+  else if(['ms_pie1_channel','ms_pie2_channel','ms_pie3_channel'].includes(id)){renderPies(filt(RAW));}
   else{applyFilters();}
 }
 function msCL(id){
@@ -2123,6 +2566,7 @@ function msCL(id){
   msLbl(id);
   if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
   else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
+  else if(['ms_pie1_channel','ms_pie2_channel','ms_pie3_channel'].includes(id)){renderPies(filt(RAW));}
   else{applyFilters();}
 }
 
