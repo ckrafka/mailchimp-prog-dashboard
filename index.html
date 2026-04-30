@@ -1836,23 +1836,65 @@ function renderChannelSummary(rows, channel, elId){
   function sortedByESV(m){return[...m.entries()].sort((a,b)=>b[1].esv-a[1].esv);}
   function sharePct(mc){return cwMC>0?(mc/cwMC*100).toFixed(0)+'%':'—';}
 
+  // ── TL;DR headline ───────────────────────────────────────────────────
+  function tldrHeadline(){
+    // Use actual raw counts for direction — not indices — to avoid rounding artifacts
+    const pwPSU=pw?.psu||0, pwESV=pw?.esv||0, pwFSU=pw?.fsu||0, pwMC=pw?.mc||0;
+
+    // Primary KPI: pick based on what the channel actually has
+    let kpiLabel='',kpiCur=0,kpiPri=0;
+    if(cw.psu>0){kpiLabel='PSU';kpiCur=cw.psu;kpiPri=pwPSU;}
+    else if(cw.esv>0){kpiLabel='ESV';kpiCur=cw.esv;kpiPri=pwESV;}
+    else if(cw.fsu>0){kpiLabel='FSU';kpiCur=cw.fsu;kpiPri=pwFSU;}
+
+    // Direction based on actual numbers
+    function dir(cur,pri){if(!pri)return'flat';const r=cur/pri;if(r>=1.05)return'up';if(r>=0.95)return'stable';return'down';}
+    const kpiDir=kpiPri>0?dir(kpiCur,kpiPri):'flat';
+    const spendDir=pwMC>0?dir(cw.mc,pwMC):'flat';
+    const kpiIdx=kpiPri>0?itpIdx(kpiCur,kpiPri):null;
+
+    // Top partner by spend (with >$0 this week)
+    const topPartEntry=sortedByMC(cwPartners).filter(([,a])=>a.mc>0)[0];
+    const topPartName=topPartEntry?topPartEntry[0]:null;
+
+    // Top funnel for the PRIMARY KPI (not just spend)
+    let kpiField=kpiLabel==='PSU'?'psu':kpiLabel==='ESV'?'esv':'fsu';
+    const topKPIFunnel=['Attract','Engage','Acquire']
+      .filter(f=>{const a=cwFunnels.get(f);return a&&a[kpiField]>0;})
+      .sort((a,b)=>(cwFunnels.get(b)?.[kpiField]||0)-(cwFunnels.get(a)?.[kpiField]||0))[0]||null;
+
+    // Overall tone driven by KPI direction + spend context
+    let tone='';
+    if(kpiDir==='up'&&spendDir!=='down')       tone=`A strong week for ${channel}`;
+    else if(kpiDir==='up'&&spendDir==='down')  tone=`A mixed week for ${channel}`;
+    else if(kpiDir==='down'&&spendDir==='up')  tone=`A challenging week for ${channel}`;
+    else if(kpiDir==='down')                   tone=`A softer week for ${channel}`;
+    else                                        tone=`A steady week for ${channel}`;
+
+    // KPI clause using actual numbers
+    let kpiClause='';
+    if(kpiLabel&&kpiPri>0){
+      const badge=pBadge(kpiIdx,false);
+      const verb=kpiDir==='up'?'improving':kpiDir==='down'?'declining':'holding steady';
+      kpiClause=` with ${kpiLabel} ${verb}${badge} (${Math.round(kpiCur).toLocaleString()} vs. ${Math.round(kpiPri).toLocaleString()} prior week)`;
+    } else if(kpiLabel){
+      kpiClause=` with ${Math.round(kpiCur).toLocaleString()} ${kpiLabel}`;
+    }
+
+    // Driver clause tied to the KPI funnel, not spend funnel
+    let driverClause='';
+    if(topPartName&&topKPIFunnel) driverClause=`, driven primarily by <strong>${topPartName}</strong> in <strong>${topKPIFunnel}</strong>`;
+    else if(topPartName)          driverClause=`, led by <strong>${topPartName}</strong>`;
+    else if(topKPIFunnel)         driverClause=`, led by <strong>${topKPIFunnel}</strong>`;
+
+    return tone+kpiClause+driverClause+'.';
+  }
+  const tldr=tldrHeadline();
+
   // ── Build narrative bullets ───────────────────────────────────────────
   const bullets=[];
 
-  // ─── BULLET 1: SPEND ─────────────────────────────────────────────────
-  {
-    const spendIdx =pBadge(itpwMC,false)   +yBadge(itpyMC,false);
-    const cppsuIdx =pBadge(itpwCPPSU,true) +yBadge(itpyCPPSU,true);
-    const cpesvIdx =pBadge(itpwCPESV,true) +yBadge(itpyCPESV,true);
-    const cpfsuIdx =pBadge(itpwFSU,false);  // use FSU as proxy; CPFSU index
-    const parts=[`Spend ${spendIdx}`];
-    if(cw.psu>0)  parts.push(`CPPSU ${cppsuIdx}`);
-    if(cw.esv>0)  parts.push(`CPESV ${cpesvIdx}`);
-    if(cw.fsu>0)  parts.push(`CPFSU ${pBadge(itpIdx(cw.cpfsu,pw?.cpfsu),true)}${yBadge(itpyCPFSU,true)}`);
-    bullets.push(`<strong>Spend:</strong> ${cwLabel} — ${parts.join(' &nbsp;|&nbsp; ')}.`);
-  }
-
-  // ─── BULLET 2: CONVERSIONS ───────────────────────────────────────────
+  // ─── BULLET 1: CONVERSIONS ───────────────────────────────────────────
   {
     const parts=[];
     if(cw.psu>0) parts.push(`PSU ${pBadge(itpwPSU,false)}${yBadge(itpyPSU,false)}`);
@@ -2095,6 +2137,69 @@ function renderChannelSummary(rows, channel, elId){
     }
   }
 
+  // ─── BULLET 4: RECOMMENDED OPTIMIZATIONS ────────────────────────────
+  {
+    const opts=[];
+
+    // Efficiency-based recommendations
+    if(cw.psu>0&&itpwCPPSU!==null){
+      if(itpwCPPSU<90) opts.push(`CPPSU is improving WoW${pBadge(itpwCPPSU,true)} — consider increasing Acquire budget to capitalize on favorable conversion efficiency while conditions hold.`);
+      else if(itpwCPPSU>110) opts.push(`CPPSU is elevated WoW${pBadge(itpwCPPSU,true)} — review Acquire audience segments and bid strategies; shift budget toward highest-performing audiences to restore efficiency.`);
+    }
+    if(cw.esv>0&&itpwCPESV!==null){
+      if(itpwCPESV<90) opts.push(`CPESV is favorable WoW${pBadge(itpwCPESV,true)} — Engage efficiency is strong; evaluate scaling mid-funnel investment or expanding to similar audience segments.`);
+      else if(itpwCPESV>110) opts.push(`CPESV has increased WoW${pBadge(itpwCPESV,true)} — review Engage creative and landing page performance; refresh audiences or adjust frequency caps to improve session value.`);
+    }
+
+    // Attract optimization
+    const fa=cwFunnels.get('Attract');
+    const fp=pwFunnels.get('Attract')||null;
+    if(fa&&fa.mc>0){
+      const cpmIdx=itpIdx(fa.cpm,fp?.cpm);
+      const ctrIdx=itpIdx(fa.ctr,fp?.ctr);
+      if(cpmIdx!==null&&cpmIdx>110) opts.push(`Attract CPM has risen WoW${pBadge(cpmIdx,true)} — assess whether broader audience targeting or adjusted bidding could improve inventory efficiency and reduce upper-funnel costs.`);
+      if(ctrIdx!==null&&ctrIdx<90) opts.push(`Attract CTR has softened WoW${pBadge(ctrIdx,false)} — consider refreshing Attract creative or tightening audience targeting to improve relevance and engagement rates.`);
+      if(ctrIdx!==null&&ctrIdx>110) opts.push(`Attract CTR is strong WoW${pBadge(ctrIdx,false)} — strong creative resonance in upper funnel; evaluate whether Attract audiences can be expanded to drive additional reach.`);
+    }
+
+    // Partner-level recommendations
+    const sortedParts=sortedByMC(cwPartners).filter(([,a])=>a.mc>0);
+    sortedParts.forEach(([pName,pA])=>{
+      const pPw=pwPartners.get(pName)||null;
+      const pMcIdx=itpIdx(pA.mc,pPw?.mc);
+      const pPsuIdx=pA.psu>0?itpIdx(pA.psu,pPw?.psu):null;
+      const pEsvIdx=pA.esv>0?itpIdx(pA.esv,pPw?.esv):null;
+      if(pPsuIdx!==null&&pPsuIdx>110&&pMcIdx!==null&&pMcIdx<105)
+        opts.push(`<strong>${pName}</strong> is delivering strong PSU growth${pBadge(pPsuIdx,false)} with relatively stable spend — consider increasing budget allocation to this partner to maximize conversion volume.`);
+      if(pEsvIdx!==null&&pEsvIdx>110&&pMcIdx!==null&&pMcIdx<105)
+        opts.push(`<strong>${pName}</strong> is showing strong ESV performance${pBadge(pEsvIdx,false)} — consider scaling mid-funnel investment with this partner while efficiency is favorable.`);
+    });
+
+    // Audience-level recommendations
+    const topPSUAud=sortedByPSU(cwAuds).filter(([,a])=>a.psu>0)[0];
+    if(topPSUAud){
+      const [aName,aA]=topPSUAud;
+      const aPw=pwAuds.get(aName)||null;
+      const aCppsuIdx=itpIdx(aA.cppsu,aPw?.cppsu);
+      if(aCppsuIdx!==null&&aCppsuIdx<95) opts.push(`<strong>${aName}</strong> is the top PSU audience with improving CPPSU efficiency${pBadge(aCppsuIdx,true)} — prioritize this audience in Acquire campaigns and explore similar or expanded segments.`);
+    }
+    const topESVAud=sortedByESV(cwAuds).filter(([,a])=>a.esv>0&&a.psu===0)[0];
+    if(topESVAud){
+      const [aName,aA]=topESVAud;
+      const aPw=pwAuds.get(aName)||null;
+      const aCpesvIdx=itpIdx(aA.cpesv,aPw?.cpesv);
+      if(aCpesvIdx!==null&&aCpesvIdx<95) opts.push(`<strong>${aName}</strong> is driving strong ESV with improving CPESV${pBadge(aCpesvIdx,true)} — consider scaling this audience in Engage to drive incremental mid-funnel volume.`);
+    }
+
+    // YoY opportunity
+    if(itpyPSU!==null&&itpyPSU>115&&cw.psu>0) opts.push(`PSU is tracking above prior year${yBadge(itpyPSU,false)} — performance momentum is strong; maintain current strategy and monitor efficiency metrics to ensure scalability.`);
+
+    if(opts.length){
+      const items=opts.map(o=>`<li style="margin-bottom:5px;">${o}</li>`).join('');
+      bullets.push(`<strong>Recommended Optimizations:</strong><ul style="margin:6px 0 0 0;padding-left:16px;">${items}</ul>`);
+    }
+  }
+
   // ── Render ────────────────────────────────────────────────────────────
   const chColor=channel==='Programmatic Display'?'#0066CC':'#FF4F23';
   const li=bullets.map(b=>`<li>${b}</li>`).join('');
@@ -2104,7 +2209,10 @@ function renderChannelSummary(rows, channel, elId){
       <span class="cdd-summary-title">${channel} — Performance Summary</span>
       <span class="cdd-summary-period">Latest Week: ${cwLabel}${pw?' vs '+pwLabel:''}</span>
     </div>
-    <div class="cdd-summary-body"><ul>${li}</ul></div>
+    <div class="cdd-summary-body">
+      <div style="font-size:13px;font-weight:700;color:var(--dark);line-height:1.5;padding:10px 14px;background:var(--cream-2);border-radius:var(--radius-sm);border-left:3px solid ${chColor};margin-bottom:12px;">${tldr}</div>
+      <ul>${li}</ul>
+    </div>
   </div>`;
   el.style.display='';
 }
