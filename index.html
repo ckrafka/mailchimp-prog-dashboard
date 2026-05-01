@@ -66,11 +66,7 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .cdd-summary-body li{margin-bottom:5px;}
 .cdd-summary-body li:last-child{margin-bottom:0;}
 .cdd-summary-body strong{color:var(--dark);font-weight:700;}
-.conv-row{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 2px 0;}
-.conv-tile{display:flex;flex-direction:column;align-items:flex-start;background:var(--cream-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px;min-width:80px;}
-.conv-tile-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--dark-50);margin-bottom:3px;}
-.conv-tile-value{font-size:16px;font-weight:800;color:var(--dark);line-height:1;margin-bottom:4px;}
-.conv-tile-badges{display:flex;flex-wrap:wrap;gap:4px;}
+.conv-row{display:inline;}
 .cdd-summary-hl-pos{color:var(--green);font-weight:700;}
 .cdd-summary-hl-neg{color:var(--radish);font-weight:700;}
 .cdd-summary-hl-neu{color:var(--dark-50);font-weight:600;}
@@ -2139,24 +2135,11 @@ function renderChannelSummary(rows, channel, elId){
 
   // ─── BULLET 1: CONVERSIONS ───────────────────────────────────────────
   {
-    const tiles=[];
-    function convTile(label,val,itpw,itpy,goodDown){
-      if(!val) return;
-      const badges=[];
-      if(itpw!==null){
-        const d=goodDown?(itpw<100?'pos':'neg'):(itpw>100?'pos':'neg');
-        badges.push(`<span class="cdd-summary-hl-${d}" style="font-size:11px;font-weight:700;">ITPW ${itpw}</span>`);
-      }
-      if(itpy!==null){
-        const d=goodDown?(itpy<100?'pos':'neg'):(itpy>100?'pos':'neg');
-        badges.push(`<span style="color:var(--dark-50);font-size:11px;font-weight:600;">ITPY</span> <span class="cdd-summary-hl-${d}" style="font-size:11px;font-weight:700;">${itpy}</span>`);
-      }
-      tiles.push(`<div class="conv-tile"><div class="conv-tile-label">${label}</div><div class="conv-tile-value">${Math.round(val).toLocaleString()}</div><div class="conv-tile-badges">${badges.join('<span style="color:var(--border);margin:0 2px;">·</span>')}</div></div>`);
-    }
-    convTile('PSU', cw.psu, itpwPSU, itpyPSU, false);
-    convTile('ESV', cw.esv, itpwESV, itpyESV, false);
-    convTile('FSU', cw.fsu, itpwFSU, itpyFSU, false);
-    if(tiles.length) bullets.push(`<strong>Conversions</strong><div class="conv-row">${tiles.join('')}</div>`);
+    const parts=[];
+    if(cw.psu>0) parts.push(`PSU ${Math.round(cw.psu).toLocaleString()} ${pBadge(itpwPSU,false)}${yBadge(itpyPSU,false)}`);
+    if(cw.esv>0) parts.push(`ESV ${Math.round(cw.esv).toLocaleString()} ${pBadge(itpwESV,false)}${yBadge(itpyESV,false)}`);
+    if(cw.fsu>0) parts.push(`FSU ${Math.round(cw.fsu).toLocaleString()} ${pBadge(itpwFSU,false)}${yBadge(itpyFSU,false)}`);
+    if(parts.length) bullets.push(`<strong>Conversions:</strong> ${parts.join(' &nbsp;|&nbsp; ')}`);
   }
 
   // ─── BULLET 3: PARTNER / FUNNEL / TACTIC INSIGHTS ────────────────────
