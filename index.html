@@ -1533,7 +1533,7 @@ function resetCddWeek(){
 }
 
 // ── CHANNEL RW SUMMARY ────────────────────────────────────────────────────
-function renderRWSummaryFor(rows, elId){
+function renderRWSummaryFor(rows, elId, channel){
   const el=document.getElementById(elId);
   if(!el)return;
   const weeklyMap=new Map();
@@ -1547,7 +1547,8 @@ function renderRWSummaryFor(rows, elId){
   if(!weeklyMap.size){el.style.display='none';return;}
   const sw=Array.from(weeklyMap.values()).sort((a,b)=>parseInt(a.fw.replace('Week ',''))-parseInt(b.fw.replace('Week ','')));
   sw.forEach(a=>{a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);});
-  const cw=sw[sw.length-1], pw=sw.length>=2?sw[sw.length-2]:null, pyD=RW_PY[cw.fw]||null;
+  const _pyLookupRW=channel==='Programmatic Display'?RW_PY_DISP:channel==='Video'?RW_PY_VID:RW_PY;
+  const cw=sw[sw.length-1], pw=sw.length>=2?sw[sw.length-2]:null, pyD=_pyLookupRW[cw.fw]||null;
   const wkNum=parseInt(cw.fw.replace('Week ',''));
   let drStr='';
   if(cw.wk){const s=new Date(cw.wk+'T00:00:00'),e=new Date(s);e.setDate(e.getDate()+6);const fmt=d=>d.toISOString().split('T')[0];drStr=fmt(s)+' \u2013 '+fmt(e);}
@@ -2339,8 +2340,8 @@ function renderChannelView(rows){
   const dispRows=cddRows.filter(r=>r['Channel']==='Programmatic Display');
   const vidRows =cddRows.filter(r=>r['Channel']==='Video');
   // RW Summaries
-  renderRWSummaryFor(dispRows,'rwSummaryDisplay');
-  renderRWSummaryFor(vidRows, 'rwSummaryVideo');
+  renderRWSummaryFor(dispRows,'rwSummaryDisplay','Programmatic Display');
+  renderRWSummaryFor(vidRows, 'rwSummaryVideo',  'Video');
   // Channel Summaries
   renderChannelSummary(dispRows,'Programmatic Display','cddSummaryDisplay');
   renderChannelSummary(vidRows, 'Video',               'cddSummaryVideo');
