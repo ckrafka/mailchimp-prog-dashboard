@@ -1105,7 +1105,10 @@ function renderRWSummary(rows){
   const cw=sortedWeeks[sortedWeeks.length-1];
   const pw=sortedWeeks.length>=2?sortedWeeks[sortedWeeks.length-2]:null;
   const pyKey=cw.fw;
-  const pyD=RW_PY[pyKey]||null;
+  // Use channel-specific PY data when rows are single-channel (same logic as Channel Deep Dive)
+  const _channels=[...new Set(rows.map(r=>r['Channel']).filter(Boolean))];
+  const _pyLookupW=_channels.length===1&&_channels[0]==='Programmatic Display'?RW_PY_DISP:_channels.length===1&&_channels[0]==='Video'?RW_PY_VID:RW_PY;
+  const pyD=_pyLookupW[pyKey]||null;
 
   // Date range
   const wkNum=parseInt(cw.fw.replace('Week ',''));
