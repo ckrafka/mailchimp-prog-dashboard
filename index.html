@@ -69,6 +69,16 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
 .cdd-summary-hl-pos{color:var(--green);font-weight:700;}
 .cdd-summary-hl-neg{color:var(--radish);font-weight:700;}
 .cdd-summary-hl-neu{color:var(--dark-50);font-weight:600;}
+.tldr-card{border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:14px;}
+.tldr-icon{font-size:22px;line-height:1;flex-shrink:0;margin-top:1px;}
+.tldr-content{flex:1;min-width:0;}
+.tldr-tone{font-size:14px;font-weight:800;color:var(--dark);line-height:1.3;margin-bottom:6px;letter-spacing:-.2px;}
+.tldr-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.tldr-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;}
+.tldr-chip-kpi-up{background:var(--green-lt);color:var(--green);}
+.tldr-chip-kpi-down{background:var(--red-lt);color:var(--radish);}
+.tldr-chip-kpi-neu{background:var(--dark-10);color:var(--dark-50);}
+.tldr-chip-driver{background:var(--cream-2);color:var(--dark-80);border:1px solid var(--border);}
 @media(max-width:900px){.cdd-grid{grid-template-columns:1fr;}}
 
 /* FILTERS */
@@ -683,6 +693,71 @@ body::after{width:520px;height:520px;bottom:-140px;right:-140px;background:radia
       </div>
     </div>
 
+    <hr class="cdd-divider">
+
+    <!-- CTV CHANNEL -->
+    <div class="cdd-section" id="cdd-ctv">
+      <div class="cdd-channel-header">
+        <div class="cdd-channel-label">
+          <span class="cdd-channel-dot" style="background:#F59E0B;"></span>
+          CTV
+        </div>
+      </div>
+      <!-- CTV RW Summary -->
+      <div id="rwSummaryCTV" class="rw-card" style="display:none;margin-bottom:20px;"></div>
+      <!-- CTV Channel Summary -->
+      <div id="cddSummaryCTV" style="display:none;margin-bottom:20px;"></div>
+      <!-- CTV Funnel WoW -->
+      <div class="fwow-section" id="fwowCTV" style="margin-bottom:20px;">
+        <div class="fwow-header">
+          <div class="fwow-title">WoW Snapshot by Funnel — CTV</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="fwow-weeks" id="fwowCTVWeeks"></div>
+            <button class="btn-fwow-collapse" id="ctvWoWBtn" onclick="toggleWoW('ctvWoW')">Collapse</button>
+          </div>
+        </div>
+        <div class="fwow-grid" id="ctvWoWGrid">
+          <div class="fwow-card"><div class="fwow-card-header"><div class="fwow-funnel-name attract-name"><span class="fwow-funnel-dot" style="background:#007C89;"></span>Attract</div></div><div class="fwow-card-body" id="fwow-ctv-attract"></div></div>
+          <div class="fwow-card"><div class="fwow-card-header"><div class="fwow-funnel-name engage-name"><span class="fwow-funnel-dot" style="background:#9333EA;"></span>Engage</div></div><div class="fwow-card-body" id="fwow-ctv-engage"></div></div>
+          <div class="fwow-card"><div class="fwow-card-header"><div class="fwow-funnel-name acquire-name"><span class="fwow-funnel-dot" style="background:#1F845A;"></span>Acquire</div></div><div class="fwow-card-body" id="fwow-ctv-acquire"></div></div>
+        </div>
+      </div>
+      <!-- CTV Partner Scorecard -->
+      <div class="aud-scorecard-wrap" id="ctvPartnerScorecard" style="margin-bottom:20px;">
+        <div class="aud-scorecard-header">
+          <div>
+            <div class="aud-scorecard-title">Partner Scorecard — CTV</div>
+            <div class="aud-scorecard-sub">Performance by partner &amp; funnel</div>
+          </div>
+          <button class="btn-fwow-collapse" id="ctvPSBtn" onclick="togglePartnerScorecard('ctv')">Collapse</button>
+        </div>
+        <div id="ctvPSBody" style="overflow-x:auto;">
+          <table class="dt" id="ctvPSTbl" style="min-width:900px;"></table>
+        </div>
+      </div>
+      <!-- CTV Weekly Performance chart + table -->
+      <div class="funnel-block">
+        <div class="funnel-banner" id="ctvBanner" style="background:#F59E0B;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 24px;display:flex;align-items:center;gap:12px;">
+          <span class="funnel-banner-title">Overall Weekly CTV Performance</span>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Partner</span>
+            <div class="ms-wrap" id="ms_ctv_partner" style="width:160px;"></div>
+            <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);">Funnel</span>
+            <div class="ms-wrap" id="ms_ctv_funnel" style="width:160px;"></div>
+            <button class="btn-collapse" id="ctvCollapseBtn" onclick="toggleFunnelBlock('ctv')">Collapse</button>
+          </div>
+        </div>
+        <div class="funnel-body" id="ctvBody">
+          <div class="full"><div class="card"><div class="card-inner">
+            <div class="card-title">Weekly Media Cost &amp; PSU — CTV</div>
+            <div class="card-subtitle">Combined bar + line</div>
+            <div class="chart-wrap"><canvas id="ctvTrendChart"></canvas></div>
+          </div></div></div>
+          <div class="dtw" style="border:none;"><table class="dt" id="ctvTable"></table></div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end #channelView -->
 
   <!-- AUDIENCE VIEW -->
@@ -1018,6 +1093,34 @@ const RW_PY_DISP = {
   "Week 51":{mc:188885.682076,imp:29783156,cl:109313,pv:155403,esv:16373,psu:196,fsu:440.0,cpm:6.34203,cpc:1.727934,ctr:0.36703,cpesv:11.536413,cppsu:963.70246,cpfsu:429.285641},
   "Week 52":{mc:192503.08821,imp:31739271,cl:129082,pv:146097,esv:15350,psu:150,fsu:362.0,cpm:6.065139,cpc:1.491324,ctr:0.406695,cpesv:12.540918,cppsu:1283.353921,cpfsu:531.776487},
 };
+const RW_PY_CTV = {
+  "Week 1":{mc:142295.171921,imp:11669531,cl:1559,pv:11219,esv:803,psu:33,fsu:95.0,cpm:12.193735,cpc:91.273362,ctr:0.01336,cpesv:177.204448,cppsu:4311.974907,cpfsu:1497.843915},
+  "Week 28":{mc:0,imp:0,cl:6,pv:9,esv:3,psu:0,fsu:0,cpm:0,cpc:0.0,ctr:0,cpesv:0.0,cppsu:0,cpfsu:0},
+  "Week 29":{mc:14213.811258,imp:1131780,cl:342,pv:252,esv:16,psu:0,fsu:0,cpm:12.558811,cpc:41.560852,ctr:0.030218,cpesv:888.363204,cppsu:0,cpfsu:0},
+  "Week 30":{mc:28365.326134,imp:3392767,cl:573,pv:1685,esv:135,psu:10,fsu:9.87,cpm:8.360529,cpc:49.503187,ctr:0.016889,cpesv:210.113527,cppsu:2836.532613,cpfsu:2873.893225},
+  "Week 31":{mc:36050.551879,imp:3539100,cl:536,pv:3270,esv:251,psu:12,fsu:18.33,cpm:10.186361,cpc:67.258492,ctr:0.015145,cpesv:143.627697,cppsu:3004.212657,cpfsu:1966.75133},
+  "Week 32":{mc:54671.741902,imp:2998960,cl:415,pv:4224,esv:310,psu:23,fsu:46.53,cpm:18.230234,cpc:131.739137,ctr:0.013838,cpesv:176.360458,cppsu:2377.032257,cpfsu:1174.978334},
+  "Week 33":{mc:54115.6052,imp:2742265,cl:413,pv:4922,esv:396,psu:21,fsu:42.23,cpm:19.733908,cpc:131.030521,ctr:0.015061,cpesv:136.655569,cppsu:2576.933581,cpfsu:1281.44933},
+  "Week 34":{mc:53501.744415,imp:2556357,cl:405,pv:4363,esv:347,psu:9,fsu:25.0,cpm:20.928902,cpc:132.103073,ctr:0.015843,cpesv:154.183701,cppsu:5944.638268,cpfsu:2140.069777},
+  "Week 35":{mc:53518.37218,imp:2626733,cl:409,pv:4194,esv:260,psu:18,fsu:51.0,cpm:20.3745,cpc:130.851766,ctr:0.015571,cpesv:205.839893,cppsu:2973.242899,cpfsu:1049.379847},
+  "Week 36":{mc:61691.668186,imp:3501580,cl:539,pv:5149,esv:277,psu:20,fsu:41.0,cpm:17.618238,cpc:114.455785,ctr:0.015393,cpesv:222.713604,cppsu:3084.583409,cpfsu:1504.674834},
+  "Week 37":{mc:39274.525686,imp:3543533,cl:627,pv:4947,esv:293,psu:15,fsu:30.0,cpm:11.083437,cpc:62.638797,ctr:0.017694,cpesv:134.04275,cppsu:2618.301712,cpfsu:1309.150856},
+  "Week 38":{mc:29004.439887,imp:3766062,cl:705,pv:4795,esv:303,psu:20,fsu:36.0,cpm:7.70153,cpc:41.141049,ctr:0.01872,cpesv:95.724224,cppsu:1450.221994,cpfsu:805.678886},
+  "Week 39":{mc:21050.159807,imp:3114588,cl:540,pv:6222,esv:303,psu:29,fsu:39.0,cpm:6.75857,cpc:38.981777,ctr:0.017338,cpesv:69.472475,cppsu:725.86758,cpfsu:539.747687},
+  "Week 40":{mc:21238.220815,imp:3457025,cl:542,pv:6149,esv:359,psu:28,fsu:60.0,cpm:6.143496,cpc:39.184909,ctr:0.015678,cpesv:59.159389,cppsu:758.507886,cpfsu:353.970347},
+  "Week 41":{mc:32695.258347,imp:4210629,cl:586,pv:6850,esv:379,psu:28,fsu:45.0,cpm:7.764934,cpc:55.793956,ctr:0.013917,cpesv:86.267172,cppsu:1167.687798,cpfsu:726.561297},
+  "Week 42":{mc:39998.791189,imp:5601143,cl:706,pv:8029,esv:482,psu:39,fsu:79.0,cpm:7.141184,cpc:56.655512,ctr:0.012605,cpesv:82.985044,cppsu:1025.61003,cpfsu:506.313813},
+  "Week 43":{mc:38975.861776,imp:5932830,cl:517,pv:9168,esv:540,psu:34,fsu:111.0,cpm:6.569523,cpc:75.388514,ctr:0.008714,cpesv:72.177522,cppsu:1146.348876,cpfsu:351.13389},
+  "Week 44":{mc:39491.22489,imp:6339905,cl:578,pv:9374,esv:569,psu:32,fsu:104.0,cpm:6.228993,cpc:68.323918,ctr:0.009117,cpesv:69.404613,cppsu:1234.100778,cpfsu:379.723316},
+  "Week 45":{mc:41040.707255,imp:6924252,cl:707,pv:11329,esv:747,psu:39,fsu:141.0,cpm:5.927096,cpc:58.049091,ctr:0.01021,cpesv:54.940706,cppsu:1052.325827,cpfsu:291.068846},
+  "Week 46":{mc:43622.409532,imp:5677930,cl:604,pv:11399,esv:756,psu:35,fsu:111.0,cpm:7.682802,cpc:72.222532,ctr:0.010638,cpesv:57.7016,cppsu:1246.354558,cpfsu:392.99468},
+  "Week 47":{mc:42865.454705,imp:7061542,cl:565,pv:11455,esv:729,psu:51,fsu:114.0,cpm:6.070268,cpc:75.868061,ctr:0.008001,cpesv:58.800349,cppsu:840.499112,cpfsu:376.012761},
+  "Week 48":{mc:77007.826097,imp:10098507,cl:915,pv:11376,esv:657,psu:33,fsu:91.0,cpm:7.625664,cpc:84.161559,ctr:0.009061,cpesv:117.211303,cppsu:2333.570488,cpfsu:846.239847},
+  "Week 49":{mc:100190.879662,imp:13464593,cl:1423,pv:11211,esv:765,psu:34,fsu:103.0,cpm:7.441063,cpc:70.408208,ctr:0.010568,cpesv:130.96847,cppsu:2946.790578,cpfsu:972.726987},
+  "Week 50":{mc:197015.28412,imp:21249666,cl:1538,pv:12948,esv:956,psu:40,fsu:104.0,cpm:9.271453,cpc:128.098364,ctr:0.007238,cpesv:206.082933,cppsu:4925.382103,cpfsu:1894.377732},
+  "Week 51":{mc:216267.703108,imp:23298088,cl:1684,pv:13271,esv:870,psu:41,fsu:112.0,cpm:9.282637,cpc:128.425002,ctr:0.007228,cpesv:248.583567,cppsu:5274.822027,cpfsu:1930.961635},
+  "Week 52":{mc:211737.195943,imp:21989354,cl:1738,pv:15903,esv:1061,psu:37,fsu:157.0,cpm:9.629078,cpc:121.828076,ctr:0.007904,cpesv:199.563804,cppsu:5722.626917,cpfsu:1348.64456},
+};
 const RW_PY_VID = {
   "Week 1":{mc:258313.338327,imp:25664537,cl:256736,pv:136630,esv:14678,psu:41,fsu:97.0,cpm:10.064991,cpc:1.006144,ctr:1.000353,cpesv:17.598674,cppsu:6300.325325,cpfsu:2663.024106},
   "Week 2":{mc:86948.494977,imp:4236052,cl:18319,pv:14559,esv:362,psu:26,fsu:59.0,cpm:20.525833,cpc:4.746356,ctr:0.432455,cpesv:240.189213,cppsu:3344.172884,cpfsu:1473.703305},
@@ -1107,7 +1210,7 @@ function renderRWSummary(rows){
   const pyKey=cw.fw;
   // Use channel-specific PY data when rows are single-channel (same logic as Channel Deep Dive)
   const _channels=[...new Set(rows.map(r=>r['Channel']).filter(Boolean))];
-  const _pyLookupW=_channels.length===1&&_channels[0]==='Programmatic Display'?RW_PY_DISP:_channels.length===1&&_channels[0]==='Video'?RW_PY_VID:RW_PY;
+  const _pyLookupW=_channels.length===1&&_channels[0]==='Programmatic Display'?RW_PY_DISP:_channels.length===1&&_channels[0]==='Video'?RW_PY_VID:_channels.length===1&&_channels[0]==='CTV'?RW_PY_CTV:RW_PY;
   const pyD=_pyLookupW[pyKey]||null;
 
   // Date range
@@ -1515,15 +1618,18 @@ function initChannelFilters(){
   const funnels=['Attract','Engage','Acquire'];
   buildMS('ms_disp_funnel',funnels,'All Funnels');
   buildMS('ms_vid_funnel', funnels,'All Funnels');
+  buildMS('ms_ctv_funnel', funnels,'All Funnels');
   buildMS('ms_cdd_week',OPTS.fiscal_weeks,'All Weeks',wkLabels);
   buildMS('ms_cdd_campaign',OPTS.campaigns,'All Campaigns');
   // Build per-channel partner lists from data
   const dispPartners=[...new Set(RAW.filter(r=>r['Channel']==='Programmatic Display'&&r['Partner']).map(r=>r['Partner']))].sort();
   const vidPartners =[...new Set(RAW.filter(r=>r['Channel']==='Video'&&r['Partner']).map(r=>r['Partner']))].sort();
+  const ctvPartners =[...new Set(RAW.filter(r=>r['Channel']==='CTV'&&r['Partner']).map(r=>r['Partner']))].sort();
   buildMS('ms_disp_partner',dispPartners,'All Partners');
   buildMS('ms_vid_partner', vidPartners, 'All Partners');
+  buildMS('ms_ctv_partner', ctvPartners, 'All Partners');
   // Re-render channel view when any channel filter changes
-  ['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].forEach(id=>{
+  ['ms_disp_funnel','ms_vid_funnel','ms_ctv_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner','ms_ctv_partner'].forEach(id=>{
     const listEl=document.getElementById(id+'_list');
     if(listEl)listEl.addEventListener('change',()=>{msLbl(id);if(window._curView==='channel')renderChannelView(filt(RAW));});
   });
@@ -1550,8 +1656,10 @@ function renderRWSummaryFor(rows, elId, channel){
   if(!weeklyMap.size){el.style.display='none';return;}
   const sw=Array.from(weeklyMap.values()).sort((a,b)=>parseInt(a.fw.replace('Week ',''))-parseInt(b.fw.replace('Week ','')));
   sw.forEach(a=>{a.cpm=sd(a.mc,a.imp)*1000;a.cpc=sd(a.mc,a.cl);a.cpesv=sd(a.mc,a.esv);a.cppsu=sd(a.mc,a.psu);a.cpfsu=sd(a.mc,a.fsu);});
-  const _pyLookupRW=channel==='Programmatic Display'?RW_PY_DISP:channel==='Video'?RW_PY_VID:RW_PY;
+  const _pyLookupRW=channel==='Programmatic Display'?RW_PY_DISP:channel==='Video'?RW_PY_VID:channel==='CTV'?RW_PY_CTV:RW_PY;
   const cw=sw[sw.length-1], pw=sw.length>=2?sw[sw.length-2]:null, pyD=_pyLookupRW[cw.fw]||null;
+  // If the latest week has no spend, impressions, or clicks — leave blank
+  if(!cw.mc && !cw.imp && !cw.cl){el.style.display='none';return;}
   const wkNum=parseInt(cw.fw.replace('Week ',''));
   let drStr='';
   if(cw.wk){const s=new Date(cw.wk+'T00:00:00'),e=new Date(s);e.setDate(e.getDate()+6);const fmt=d=>d.toISOString().split('T')[0];drStr=fmt(s)+' \u2013 '+fmt(e);}
@@ -1591,7 +1699,7 @@ function renderRWSummaryFor(rows, elId, channel){
 }
 
 // ── CHANNEL FUNNEL WOW ────────────────────────────────────────────────────
-function renderFunnelWoWFor(rows, prefix, weeksElId){
+function renderFunnelWoWFor(rows, prefix, weeksElId, channel){
   const sec=document.getElementById('fwow'+prefix);
   const allWeeks=[...new Set(rows.map(r=>r['Fiscal Week']))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
   if(allWeeks.length<2){if(sec)sec.style.display='none';return;}
@@ -1603,7 +1711,8 @@ function renderFunnelWoWFor(rows, prefix, weeksElId){
   const currDate=currRows.length?currRows[0]['Week']||'':'';
   const weeksEl=document.getElementById(weeksElId);
   if(weeksEl)weeksEl.textContent=pwk+(prevDate?' ('+prevDate+')':'')+' vs '+cwk+(currDate?' ('+currDate+')':'');
-  const pyWeek=RW_PY[cwk]||null;
+  const _pyLookupF=channel==='Programmatic Display'?RW_PY_DISP:channel==='Video'?RW_PY_VID:channel==='CTV'?RW_PY_CTV:RW_PY;
+  const pyWeek=_pyLookupF[cwk]||null;
   function idxCls(idx,dir){if(dir==='none')return'fwow-neutral';return(dir==='down'?idx<100:idx>100)?'fwow-good':'fwow-bad';}
   const funnelMetrics={
     attract:{phase:'Attract',metrics:[{k:'cpm',lb:'CPM',fv:F.cf,dir:'down'},{k:'ctr',lb:'CTR',fv:F.pct,dir:'up'},{k:'mc',lb:'Media Cost',fv:F.cost,dir:'none'}]},
@@ -1890,8 +1999,10 @@ function renderChannelSummary(rows, channel, elId){
 
   // Always anchor on the latest week in the data
   const cw=sw[sw.length-1];
+  // If the latest week has no spend, impressions, or clicks — leave blank
+  if(!cw.mc && !cw.imp && !cw.cl){el.style.display='none';return;}
   const pw=sw.length>=2?sw[sw.length-2]:null;
-  const _pyLookup=channel==='Programmatic Display'?RW_PY_DISP:RW_PY_VID;
+  const _pyLookup=channel==='Programmatic Display'?RW_PY_DISP:channel==='Video'?RW_PY_VID:channel==='CTV'?RW_PY_CTV:RW_PY;
   const pyD=_pyLookup[cw.fw]||null;
   const cwLabel=cw.fw.replace('Week ','W');
   const pwLabel=pw?pw.fw.replace('Week ','W'):null;
@@ -1954,56 +2065,67 @@ function renderChannelSummary(rows, channel, elId){
 
   // ── TL;DR headline ───────────────────────────────────────────────────
   function tldrHeadline(){
-    // Use actual raw counts for direction — not indices — to avoid rounding artifacts
     const pwPSU=pw?.psu||0, pwESV=pw?.esv||0, pwFSU=pw?.fsu||0, pwMC=pw?.mc||0;
 
-    // Primary KPI: pick based on what the channel actually has
     let kpiLabel='',kpiCur=0,kpiPri=0;
     if(cw.psu>0){kpiLabel='PSU';kpiCur=cw.psu;kpiPri=pwPSU;}
     else if(cw.esv>0){kpiLabel='ESV';kpiCur=cw.esv;kpiPri=pwESV;}
     else if(cw.fsu>0){kpiLabel='FSU';kpiCur=cw.fsu;kpiPri=pwFSU;}
 
-    // Direction based on actual numbers
     function dir(cur,pri){if(!pri)return'flat';const r=cur/pri;if(r>=1.05)return'up';if(r>=0.95)return'stable';return'down';}
     const kpiDir=kpiPri>0?dir(kpiCur,kpiPri):'flat';
     const spendDir=pwMC>0?dir(cw.mc,pwMC):'flat';
     const kpiIdx=kpiPri>0?itpIdx(kpiCur,kpiPri):null;
 
-    // Top partner by spend (with >$0 this week)
     const topPartEntry=sortedByMC(cwPartners).filter(([,a])=>a.mc>0)[0];
     const topPartName=topPartEntry?topPartEntry[0]:null;
 
-    // Top funnel for the PRIMARY KPI (not just spend)
     let kpiField=kpiLabel==='PSU'?'psu':kpiLabel==='ESV'?'esv':'fsu';
     const topKPIFunnel=['Attract','Engage','Acquire']
       .filter(f=>{const a=cwFunnels.get(f);return a&&a[kpiField]>0;})
       .sort((a,b)=>(cwFunnels.get(b)?.[kpiField]||0)-(cwFunnels.get(a)?.[kpiField]||0))[0]||null;
 
-    // Overall tone driven by KPI direction + spend context
-    let tone='';
-    if(kpiDir==='up'&&spendDir!=='down')       tone=`A strong week for ${channel}`;
-    else if(kpiDir==='up'&&spendDir==='down')  tone=`A mixed week for ${channel}`;
-    else if(kpiDir==='down'&&spendDir==='up')  tone=`A challenging week for ${channel}`;
-    else if(kpiDir==='down')                   tone=`A softer week for ${channel}`;
-    else                                        tone=`A steady week for ${channel}`;
+    // Tone icon
+    let icon='';
+    if(kpiDir==='up'&&spendDir!=='down')      icon='🟢';
+    else if(kpiDir==='up'&&spendDir==='down') icon='🟡';
+    else if(kpiDir==='down'&&spendDir==='up') icon='🔴';
+    else if(kpiDir==='down')                  icon='🟠';
+    else                                       icon='🔵';
 
-    // KPI clause using actual numbers
-    let kpiClause='';
-    if(kpiLabel&&kpiPri>0){
-      const badge=pBadge(kpiIdx,false);
-      const verb=kpiDir==='up'?'improving':kpiDir==='down'?'declining':'holding steady';
-      kpiClause=` with ${kpiLabel} ${verb}${badge} (${Math.round(kpiCur).toLocaleString()} vs. ${Math.round(kpiPri).toLocaleString()} prior week)`;
-    } else if(kpiLabel){
-      kpiClause=` with ${Math.round(kpiCur).toLocaleString()} ${kpiLabel}`;
+    const kpiVerb=kpiDir==='up'?'improved':kpiDir==='down'?'declined':'held steady';
+    const spendVerb=spendDir==='up'?'increased':spendDir==='down'?'decreased':'held steady';
+
+    // Count tactics (audiences) with improving ESV WoW — used for positive note
+    let esvImprovingTactics=0;
+    if(pw){
+      const pwAudMap=dimAgg(pwRows,'Audience');
+      cwAuds.forEach((ca,aud)=>{
+        const pa=pwAudMap.get(aud);
+        if(pa&&ca.esv>0&&ca.esv>(pa.esv||0)) esvImprovingTactics++;
+      });
     }
 
-    // Driver clause tied to the KPI funnel, not spend funnel
-    let driverClause='';
-    if(topPartName&&topKPIFunnel) driverClause=`, driven primarily by <strong>${topPartName}</strong> in <strong>${topKPIFunnel}</strong>`;
-    else if(topPartName)          driverClause=`, led by <strong>${topPartName}</strong>`;
-    else if(topKPIFunnel)         driverClause=`, led by <strong>${topKPIFunnel}</strong>`;
+    // Build complete sentence
+    let tone='';
+    if(kpiLabel&&kpiPri>0){
+      const driverStr=topPartName&&topKPIFunnel?`, driven by ${topPartName} in ${topKPIFunnel}`:topPartName?`, led by ${topPartName}`:topKPIFunnel?`, driven by ${topKPIFunnel}`:'';
 
-    return tone+kpiClause+driverClause+'.';
+      if(kpiDir==='down'&&cw.esv>0&&esvImprovingTactics>0&&pw?.cpesv>0&&cw.cpesv<pw.cpesv){
+        // PSU soft but ESV improving across tactics — surface the silver lining
+        const engageStr=topKPIFunnel==='Engage'?` driven by Engage`:(cwFunnels.get('Engage')?.psu>0?` with Engage contributing PSU`:'');
+        tone=`${channel} PSU came in on the lower end of conversions WoW${engageStr}. On a positive note, ESV increased across ${esvImprovingTactics} tactic${esvImprovingTactics>1?'s':''}, contributing to improved overall CPESV efficiency.`;
+      } else {
+        tone=`${channel} ${kpiLabel} ${kpiVerb} WoW while spend ${spendVerb}${driverStr}.`;
+      }
+    } else if(kpiLabel){
+      const driverStr=topPartName?`, led by ${topPartName}`:'';
+      tone=`${channel} delivered ${Math.round(kpiCur).toLocaleString()} ${kpiLabel} this week${driverStr}.`;
+    } else {
+      tone=`${channel} spend ${spendVerb} this week.`;
+    }
+
+    return {tone, icon};
   }
   const tldr=tldrHeadline();
 
@@ -2317,8 +2439,9 @@ function renderChannelSummary(rows, channel, elId){
   }
 
   // ── Render ────────────────────────────────────────────────────────────
-  const chColor=channel==='Programmatic Display'?'#0066CC':'#FF4F23';
+  const chColor=channel==='Programmatic Display'?'#0066CC':channel==='Video'?'#FF4F23':'#F59E0B';
   const li=bullets.map(b=>`<li>${b}</li>`).join('');
+  const tldrBg=channel==='Programmatic Display'?'rgba(0,102,204,0.06)':channel==='Video'?'rgba(255,79,35,0.06)':'rgba(245,158,11,0.06)';
   el.innerHTML=`<div class="cdd-summary">
     <div class="cdd-summary-header">
       <span style="width:10px;height:10px;border-radius:50%;background:${chColor};display:inline-block;flex-shrink:0;"></span>
@@ -2326,7 +2449,12 @@ function renderChannelSummary(rows, channel, elId){
       <span class="cdd-summary-period">Latest Week: ${cwLabel}${pw?' vs '+pwLabel:''}</span>
     </div>
     <div class="cdd-summary-body">
-      <div style="font-size:13px;font-weight:700;color:var(--dark);line-height:1.5;padding:10px 14px;background:var(--cream-2);border-radius:var(--radius-sm);border-left:3px solid ${chColor};margin-bottom:12px;">${tldr}</div>
+      <div class="tldr-card" style="background:${tldrBg};border:1.5px solid ${chColor}30;">
+        <div class="tldr-icon">${tldr.icon}</div>
+        <div class="tldr-content">
+          <div class="tldr-tone">${tldr.tone}</div>
+        </div>
+      </div>
       <ul>${li}</ul>
     </div>
   </div>`;
@@ -2342,25 +2470,33 @@ function renderChannelView(rows){
   cddRows=cddCamps.length?cddRows.filter(r=>cddCamps.includes(r['Campaign'])):cddRows;
   const dispRows=cddRows.filter(r=>r['Channel']==='Programmatic Display');
   const vidRows =cddRows.filter(r=>r['Channel']==='Video');
+  const ctvRows =cddRows.filter(r=>r['Channel']==='CTV');
   // RW Summaries
   renderRWSummaryFor(dispRows,'rwSummaryDisplay','Programmatic Display');
   renderRWSummaryFor(vidRows, 'rwSummaryVideo',  'Video');
+  renderRWSummaryFor(ctvRows, 'rwSummaryCTV',    'CTV');
   // Channel Summaries
   renderChannelSummary(dispRows,'Programmatic Display','cddSummaryDisplay');
   renderChannelSummary(vidRows, 'Video',               'cddSummaryVideo');
+  renderChannelSummary(ctvRows, 'CTV',                 'cddSummaryCTV');
   // Funnel WoW
-  renderFunnelWoWFor(dispRows,'Display','fwowDisplayWeeks');
-  renderFunnelWoWFor(vidRows, 'Video',  'fwowVideoWeeks');
+  renderFunnelWoWFor(dispRows,'Display','fwowDisplayWeeks','Programmatic Display');
+  renderFunnelWoWFor(vidRows, 'Video',  'fwowVideoWeeks',  'Video');
+  renderFunnelWoWFor(ctvRows, 'CTV',    'fwowCTVWeeks',    'CTV');
   // Partner Scorecards (unaffected by partner filter — show all partners)
   renderPartnerScorecard(dispRows,'dispPSTbl');
   renderPartnerScorecard(vidRows, 'vidPSTbl');
+  renderPartnerScorecard(ctvRows, 'ctvPSTbl');
   // Trend charts + tables (respecting per-channel funnel + partner filters)
   const dispParts=msVals('ms_disp_partner');
   const vidParts =msVals('ms_vid_partner');
+  const ctvParts =msVals('ms_ctv_partner');
   const dispFiltered=dispParts.length?dispRows.filter(r=>dispParts.includes(r['Partner'])):dispRows;
   const vidFiltered =vidParts.length ?vidRows.filter(r=>vidParts.includes(r['Partner'])) :vidRows;
+  const ctvFiltered =ctvParts.length ?ctvRows.filter(r=>ctvParts.includes(r['Partner'])) :ctvRows;
   renderChannelTrend(dispFiltered,'dispTrendChart','dispTable','ms_disp_funnel',CLR.blue);
   renderChannelTrend(vidFiltered, 'vidTrendChart', 'vidTable', 'ms_vid_funnel', CLR.rad);
+  renderChannelTrend(ctvFiltered, 'ctvTrendChart', 'ctvTable', 'ms_ctv_funnel', '#F59E0B');
 }
 
 // ── AUDIENCE TAB ─────────────────────────────────────────────────────────
@@ -2780,7 +2916,7 @@ function resetAudFilters(){
 function msSA(id){
   document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>{if(!c.closest('label').style.display||c.closest('label').style.display!=='none')c.checked=true;});
   msLbl(id);
-  if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
+  if(['ms_disp_funnel','ms_vid_funnel','ms_ctv_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner','ms_ctv_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
   else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
   else if(['ms_pie1_channel','ms_pie2_channel','ms_pie3_channel'].includes(id)){renderPies(filt(RAW));}
   else{applyFilters();}
@@ -2788,7 +2924,7 @@ function msSA(id){
 function msCL(id){
   document.getElementById(id+'_list').querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
   msLbl(id);
-  if(['ms_disp_funnel','ms_vid_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
+  if(['ms_disp_funnel','ms_vid_funnel','ms_ctv_funnel','ms_cdd_week','ms_cdd_campaign','ms_disp_partner','ms_vid_partner','ms_ctv_partner'].includes(id)){if(window._curView==='channel')renderChannelView(filt(RAW));}
   else if(['ms_aud_from','ms_aud_to','ms_aud_single_week'].includes(id)){if(window._curView==='audience')renderAudienceView();}
   else if(['ms_pie1_channel','ms_pie2_channel','ms_pie3_channel'].includes(id)){renderPies(filt(RAW));}
   else{applyFilters();}
