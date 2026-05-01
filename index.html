@@ -2135,11 +2135,18 @@ function renderChannelSummary(rows, channel, elId){
 
   // ─── BULLET 1: CONVERSIONS ───────────────────────────────────────────
   {
-    const parts=[];
-    if(cw.psu>0) parts.push(`PSU ${Math.round(cw.psu).toLocaleString()} ${pBadge(itpwPSU,false)}${yBadge(itpyPSU,false)}`);
-    if(cw.esv>0) parts.push(`ESV ${Math.round(cw.esv).toLocaleString()} ${pBadge(itpwESV,false)}${yBadge(itpyESV,false)}`);
-    if(cw.fsu>0) parts.push(`FSU ${Math.round(cw.fsu).toLocaleString()} ${pBadge(itpwFSU,false)}${yBadge(itpyFSU,false)}`);
-    if(parts.length) bullets.push(`<strong>Conversions:</strong> ${parts.join(' &nbsp;|&nbsp; ')}`);
+    function convPill(label,val,itpw,itpy){
+      if(!val)return'';
+      const itpwH=itpw!==null?pBadge(itpw,false):'';
+      const itpyH=itpy!==null?yBadge(itpy,false):'';
+      return`<span style="display:inline-flex;align-items:center;gap:4px;background:var(--cream-2);border:1px solid var(--border);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;color:var(--dark);white-space:nowrap;">${label} <span style="font-weight:800;">${Math.round(val).toLocaleString()}</span>${itpwH}${itpyH}</span>`;
+    }
+    const pills=[];
+    pills.push(convPill('PSU',cw.psu,itpwPSU,itpyPSU));
+    pills.push(convPill('ESV',cw.esv,itpwESV,itpyESV));
+    pills.push(convPill('FSU',cw.fsu,itpwFSU,itpyFSU));
+    const filled=pills.filter(Boolean);
+    if(filled.length) bullets.push(`<strong>Conversions:</strong> <span style="display:inline-flex;flex-wrap:wrap;gap:6px;vertical-align:middle;">${filled.join('')}</span>`);
   }
 
   // ─── BULLET 3: PARTNER / FUNNEL / TACTIC INSIGHTS ────────────────────
